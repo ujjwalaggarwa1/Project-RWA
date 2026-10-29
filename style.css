@@ -1,0 +1,182 @@
+:root{
+    /* dark to light */
+    --color-charcoal0: oklch(0.1448 0 0);
+    --color-charcoal: oklch(0.1822 0 0);
+    --color-charcoal1: oklch(0.2178 0 0);
+    --color-charcoal2: oklch(0.2478 0 0);
+    --color-charcoal3: oklch(0.2686 0 0);
+
+    /* dark to light */
+    --color-whity0: oklch(0.9467 0.0051 85);
+    --color-whity: oklch(0.96 0.0038 85);
+    --color-whity2: oklch(0.9733 0.0025 85);
+    --color-whity3: oklch(0.9867 0.0013 85);
+    --color-whity4: oklch(1 0 85);
+
+
+    /* default page colors */
+    --sunken-color: var(--color-whity0);
+    --page-color: var(--color-whity);
+    --surface-color: var(--color-whity2);
+    --raised-color: var(--color-whity3);
+    --overlay-color: var(--color-whity4);
+    --ink-color0: var(--color-charcoal0);
+    --ink-color: var(--color-charcoal);
+
+    --accent-color: oklch(54.6% 0.245 262.881);
+
+    --rt-value: 0deg;
+    --shTran-value: 0.2;
+
+}
+
+.dark{
+    --sunken-color: var(--color-charcoal0);
+    --page-color: var(--color-charcoal);
+    --surface-color: var(--color-charcoal1);
+    --raised-color: var(--color-charcoal2);
+    --overlay-color: var(--color-charcoal3);
+    --ink-color0: var(--color-whity0);
+    --ink-color: var(--color-whity);
+
+
+    --rt-value: 360deg;
+    --shTran-value: 0.6;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+
+    transition: background-color 0.2s ease, color 0.2s ease; 
+    font-family: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.pop{
+    box-shadow: 
+        0 20px 25px -5px rgb(0 0 0 / var(--shTran-value)), 
+        0 8px 10px -6px rgb(0 0 0 / var(--shTran-value)),
+        inset 0 1px 2px 0 oklch(from var(--ink-color0) l c h / 5%);
+}
+
+body{
+    /* min-width: 100dvw; */
+    min-height: 100dvh;
+
+    background-color: var(--page-color);
+    color: var(--ink-color);
+}
+
+button{
+    padding: 0.2rem;
+    border-radius: 5px;
+    background-color: transparent;
+    color: var(--ink-color);
+    cursor: pointer;
+    border: none;
+    /* border: 1px solid var(--ink-color); */
+    border-radius: 0.75rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: 
+        0 20px 25px -5px rgb(0 0 0 / var(--shTran-value)), 
+        0 8px 10px -6px rgb(0 0 0 / var(--shTran-value)),
+        inset 0 1px 2px 0 oklch(from var(--ink-color0) l c h / 5%);
+}
+
+button *{
+    transition: transform 0.5s ease-in-out;
+}
+
+nav{
+    position: sticky;
+    top: 0;
+    height: 5rem;
+
+    padding: 0px 5%;
+
+    background-color: color-mix(in srgb, var(--color-charcoal) 5%, transparent);
+    backdrop-filter: blur(5px) saturate(1.35) blur(10px);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav .branding{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+nav .controls{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .5rem;
+}
+
+nav .controls .dashpill{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.2em;
+
+    padding: 0.4rem;
+    /* border: 1px solid var(--ink-color); */
+    border-radius: calc(10px + 0.4rem);
+
+    background-color: var(--raised-color);
+
+    font-size: smaller;
+
+    box-shadow: 
+        0 20px 25px -5px rgb(0 0 0 / var(--shTran-value)), 
+        0 8px 10px -6px rgb(0 0 0 / var(--shTran-value)),
+        inset 0 1px 2px 0 oklch(from var(--ink-color0) l c h / 5%);
+}
+
+nav .controls .dashpill button{ 
+    font-size: smaller;
+    padding: 0.2rem 0.4rem;
+    border-color: var(--color-overlay);
+    border-radius: 0px;
+
+    box-shadow: none;
+}
+
+nav .controls .dashpill button:first-child{
+    border-top-left-radius: 0.75rem;
+    border-bottom-left-radius: 0.75rem;
+}
+
+nav .controls .dashpill button:last-child{
+    border-top-right-radius: 0.75rem;
+    border-bottom-right-radius: 0.75rem;
+}
+
+
+nav .controls .dashpill button:hover{
+    background-color: var(--accent-color);
+    box-shadow: 0px 0px 3px var(--accent-color);
+}
+
+nav .controls .dashpill button svg{
+    height: 1.75em;
+}
+
+#theme-toggle{background-color: var(--raised-color);}
+#theme-toggle svg{
+    transform: rotate(var(--rt-value));
+}
+
+/* .root{ */
+    /* min-width: calc(100dvw-40px); */
+    /* min-height: 100dvh; */
+    /* background: linear-gradient(0deg, oklch(25.59% 0.0703 261.56) 0.000% 4.762%, oklch(26.96% 0.0686 265.67) 4.762% 9.524%, oklch(28.83% 0.0663 271.18) 9.524% 14.286%, oklch(31.11% 0.0636 278.02) 14.286% 19.048%, oklch(33.73% 0.0607 286.11) 19.048% 23.810%, oklch(36.61% 0.0579 295.38) 23.810% 28.571%, oklch(39.90% 0.0546 306.44) 28.571% 33.333%, oklch(43.63% 0.0508 319.36) 33.333% 38.095%, oklch(47.60% 0.0470 333.19) 38.095% 42.857%, oklch(51.63% 0.0441 347.00) 42.857% 47.619%, oklch(55.51% 0.0427 359.84) 47.619% 52.381%, oklch(59.34% 0.0433 11.87) 52.381% 57.143%, oklch(63.26% 0.0454 23.71) 57.143% 61.905%, oklch(67.11% 0.0484 35.14) 61.905% 66.667%, oklch(70.75% 0.0514 45.93) 66.667% 71.429%, oklch(74.02% 0.0537 55.85) 71.429% 76.190%, oklch(77.00% 0.0555 65.22) 76.190% 80.952%, oklch(79.79% 0.0571 74.18) 80.952% 85.714%, oklch(82.27% 0.0586 82.28) 85.714% 90.476%, oklch(84.33% 0.0598 89.00) 90.476% 95.238%, oklch(85.83% 0.0606 93.89) 95.238% 100.000%); */
+/* } */
