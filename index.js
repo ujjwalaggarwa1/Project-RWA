@@ -112,3 +112,4 @@ async function toggleTheme(toggleBtn) {
 
     localStorage.setItem("theme", isReversing ? "dark" : "light") //save theme
 }
+
