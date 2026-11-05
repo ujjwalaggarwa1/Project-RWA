@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e293b" />
+    </linearGradient>
+
+    <!-- Primary Accent Gradient (Buildings & Shield) -->
+    <linearGradient id="primaryGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+
+    <!-- Secondary Accent Gradient (Community & Welfare) -->
+    <linearGradient id="secondaryGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#2dd4bf" />
+    </linearGradient>
+
+    <!-- Gold Trim Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fbbf24" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Premium Background Canvas -->
+  <rect width="100%" height="100%" fill="url(#bgGrad)" rx="16" />
+
+  <g transform="translate(10, 0)">
+    <!-- LOGO ICON -->
+    <g id="logo-icon" transform="translate(80, 0)">
+      <!-- Protective Shield Background (Welfare & Security) -->
+      <path d="M160,80 L260,110 C260,230 160,290 160,290 C160,290 60,230 60,110 Z"
+            fill="none" stroke="url(#primaryGrad)" stroke-width="4" opacity="0.3" stroke-dasharray="8 4"/>
+
+      <!-- Apartment Tower 1 (Left - Medium) -->
+      <rect x="95" y="140" width="35" height="110" rx="3" fill="url(#primaryGrad)" opacity="0.7" />
+      <!-- Windows Tower 1 -->
+      <circle cx="106" cy="155" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="119" cy="155" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="106" cy="175" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="119" cy="175" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="106" cy="195" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="119" cy="195" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="106" cy="215" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="119" cy="215" r="2.5" fill="#ffffff" opacity="0.9" />
+
+      <!-- Apartment Tower 2 (Center - Tall) -->
+      <rect x="137" y="100" width="46" height="150" rx="4" fill="url(#primaryGrad)" />
+      <!-- Windows Tower 2 -->
+      <rect x="146" y="115" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="162" y="115" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="146" y="135" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="162" y="135" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="146" y="155" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="162" y="155" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="146" y="175" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="162" y="175" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="146" y="195" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+      <rect x="162" y="195" width="8" height="12" rx="1" fill="#ffffff" opacity="0.95" />
+
+      <!-- Apartment Tower 3 (Right - Small) -->
+      <rect x="190" y="160" width="35" height="90" rx="3" fill="url(#primaryGrad)" opacity="0.8" />
+      <!-- Windows Tower 3 -->
+      <circle cx="201" cy="175" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="214" cy="175" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="201" cy="195" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="214" cy="195" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="201" cy="215" r="2.5" fill="#ffffff" opacity="0.9" />
+      <circle cx="214" cy="215" r="2.5" fill="#ffffff" opacity="0.9" />
+
+      <!-- Intersecting Management Gears / Network Nodes at Foundation -->
+      <path d="M70,250 L250,250" stroke="url(#secondaryGrad)" stroke-width="4" stroke-linecap="round" />
+
+      <!-- Caring Hands / Welfare Cradle -->
+      <path d="M65,220 C50,270 110,330 160,330 C210,330 270,270 255,220"
+            fill="none" stroke="url(#secondaryGrad)" stroke-width="6" stroke-linecap="round" />
+
+      <!-- Network Tech Nodes (Representing Management System) -->
+      <circle cx="65" cy="220" r="5" fill="#2dd4bf" />
+      <circle cx="255" cy="220" r="5" fill="#2dd4bf" />
+      <circle cx="160" cy="330" r="6" fill="#4ade80" />
+    </g>
+
+    <!-- TYPOGRAPHY / TEXT SECTION -->
+    <g id="logo-text" transform="translate(420, 0)">
+      <!-- Main Brand Name -->
+      <text x="0" y="190" font-family="'Montserrat', 'Segoe UI', sans-serif" font-weight="800" font-size="42" fill="#ffffff" letter-spacing="3">
+        NEIGHBOURLY
+      </text>
+
+      <!-- System Core Title -->
+      <text x="0" y="235" font-family="'Montserrat', 'Segoe UI', sans-serif" font-weight="600" font-size="20" fill="url(#secondaryGrad)" letter-spacing="1.5">
+        RESIDENTS WELFARE ASSOCIATION
+      </text>
+
+      <!-- Sub-features Tags -->
+      <text x="0" y="275" font-family="'Segoe UI', sans-serif" font-weight="400" font-size="12" fill="#94a3b8" letter-spacing="4">
+        WELFARE • COMPLIANCE • COMMUNITY
+      </text>
+
+      <!-- Decorative Accent Line -->
+      <line x1="0" y1="205" x2="320" y2="205" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round" />
+    </g>
+  </g>
+</svg>
