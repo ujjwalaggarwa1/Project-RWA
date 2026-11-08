@@ -3,17 +3,24 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://github.com/ujjwalaggarwa1/Project-RWA#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ujjwalaggarwa1/Project-RWA.git"
+  },
+  "author": "Ujjwal Aggarwal",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "pnpm dlx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --minify && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dev-css": "pnpm dlx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --minify --watch",
+    "build-css": "pnpm dlx @tailwindcss/cli -i ./src/css/input.css -o ./src/css/output.css --minify"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.5",
     "react": "^19.3.1",
-    "react-dom": "^19.3.1",
-    "tailwindcss": "^4.3.5"
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.29.7",
@@ -27,6 +34,10 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
     "globals": "^17.13.0",
+    "tailwindcss": "^4.3.5",
     "vite": "^8.3.6"
+  },
+  "allowScripts": {
+    "unrs-resolver@1.12.2": true
   }
 }
