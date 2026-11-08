@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script>
+        // Send the missing path to index.html as ?path=...
+        // Example: /notices/12?x=1#top  ->  /?path=%2Fnotices%2F12%3Fx%3D1%23top
+        const wanted = location.pathname + location.search + location.hash;
+        location.replace('/?path=' + encodeURIComponent(wanted));
+    </script>
+</head>
+<body>
+</body>
+</html>
