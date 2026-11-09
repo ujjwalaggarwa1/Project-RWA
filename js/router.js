@@ -1,9 +1,11 @@
 // Undo the 404.html redirect: /?path=%2Feg -> /eg (no new history entry)
 
-// FIX: Use "." instead of "../" to get the current directory of router.js.
-// This perfectly handles Localhost (/), Custom Domains (/), and Github Pages (/repo-name/)
-// Note: If you ever move router.js into a subfolder (like /js/router.js), change this back to "../"
-const BASE = new URL("../", import.meta.url).pathname;
+// DYNAMIC BASE EXTRACTION:
+// This looks at the absolute script URL and cuts off the "/js/..." portion.
+// It mathematically guarantees the correct root on Localhost (/), Custom Domains (/), and Github Pages (/repo-name/)
+const scriptPath = new URL(import.meta.url).pathname;
+const BASE = scriptPath.substring(0, scriptPath.lastIndexOf('/js/')) + '/';
+
 
 // URL path without the base:  "/repo-name/notices" -> "/notices"
 export function currentPath() {
