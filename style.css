@@ -397,20 +397,61 @@ nav .pages button.active > * {
 
 
 /* _____________________________________________________________________________ */
+/* pages-content */
+#content{
+    min-height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* 404 */
+
 .not-found-svg {
     width: 368px;
 }
 
 .fill-path {
-    fill: #2ED3CD;
+    fill: #ffba00;
 }
 
 .ink-path, .text-path {
-    fill: #1A1A1A;
+    fill: var(--ink-color0);
 }
 
+/* footer */
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    font-family: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
+    border-top: 1px solid color-mix(in srgb, transparent 50%, var(--ink-color) 50%);
+}
+
+footer span {
+    font-family: inherit;
+    text-transform: uppercase;
+
+    background: linear-gradient(
+        45deg, 
+        color-mix(in srgb, transparent 50%, var(--ink-color) 50%) 35%, 
+        var(--ink-color0) 50%, 
+        color-mix(in srgb, transparent 50%, var(--ink-color) 50%) 65%
+    );
+
+    background-size: 200% auto;
+    
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+
+    animation: shine-move 2s cubic-bezier(0.87, 0, 0.13, 1) infinite;
+}
 
 /* _____________________________________________________________________________ */
 
@@ -553,4 +594,16 @@ nav .pages button.active > * {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--sunken-color);
     background-clip: content-box;
+}
+
+
+/* ____Animations__________________________________________________-- */
+
+@keyframes shine-move {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
