@@ -123,8 +123,11 @@ nav .branding{
     text-decoration: none;
     color: inherit;
     font-weight: normal;
+}
 
-    font-family: "Nova Square" , "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+/* for some reason i had to put in full selector for this to pick up font */
+nav .branding .name #name{
+    font-family: "Nunito", "Zen Dots", "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 nav .branding .logo{
@@ -387,6 +390,14 @@ nav .pages::after {
     filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 15px var(--glow-color));
 }
 
+
+
+
+/* _____________________________________________________________________________ */
+
+
+
+
 /* _____________________________________________________________________________ */
 
 
@@ -500,13 +511,4 @@ nav .pages::after {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--sunken-color);
     background-clip: content-box;
-}
-
-/* ____animations______________________________________________-- */
-
-@keyframes hide {
-    to{
-        transform: translateX(-105%);
-        display: none;
-    }
 }

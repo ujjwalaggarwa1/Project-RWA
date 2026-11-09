@@ -1,5 +1,6 @@
 {
     "name": "Neighbourly",
+    
     "rootId": "content",
     "notFound": "404",
     "routes": {
