@@ -1,7 +1,9 @@
 // Undo the 404.html redirect: /?path=%2Feg -> /eg (no new history entry)
 
-// adding a base name system so github pages react properly
-const BASE = new URL("../", import.meta.url).pathname;
+// FIX: Use "." instead of "../" to get the current directory of router.js.
+// This perfectly handles Localhost (/), Custom Domains (/), and Github Pages (/repo-name/)
+// Note: If you ever move router.js into a subfolder (like /js/router.js), change this back to "../"
+const BASE = new URL(".", import.meta.url).pathname;
 
 // URL path without the base:  "/repo-name/notices" -> "/notices"
 export function currentPath() {
