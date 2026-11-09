@@ -1,3 +1,13 @@
 {
-    "name": "Neighbourly"
+    "name": "Neighbourly",
+    "rootId": "content",
+    "notFound": "404",
+    "routes": {
+        "/": "overview",
+        "/notices": "notices",
+        "/maintenance": "maintenance",
+        "/fee-calculator": "fee",
+        "/booking": "booking",
+        "/complaints": "complaint"
+        }
 }

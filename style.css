@@ -28,6 +28,8 @@
     --rt-value: 0deg;
     --shTran-value: 0.2;
 
+    --glow-color: #e3e6ff;
+
 }
 
 .dark{
@@ -42,6 +44,8 @@
 
     --rt-value: 360deg;
     --shTran-value: 0.6;
+
+    --glow-color: #a4a4a4;
 }
 
 *{
@@ -77,7 +81,7 @@ button{
     /* border: 1px solid var(--ink-color); */
     border-radius: 0.75rem;
     
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
 
@@ -97,7 +101,7 @@ nav{
     height: 5rem;
     z-index: 100;
 
-    padding: 0px 5%;
+    /* padding: 0px 5%; */
     border-bottom: 2px solid var(--ink-color);
     box-sizing: border-box;
 
@@ -106,7 +110,7 @@ nav{
     /* backdrop-filter: blur(5px) saturate(1.35) blur(10px); */
 
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -119,13 +123,26 @@ nav .branding{
     text-decoration: none;
     color: inherit;
     font-weight: normal;
+
+    font-family: "Nova Square" , "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+nav .branding .logo{
+    height: 3rem;
+    width: 3rem;
+    background-color: var(--raised-color);
+    color: var(--ink-color);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 nav .controls{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: .5rem;
+    gap: 0.5rem;
 }
 
 nav .controls .dashpill{
@@ -145,7 +162,7 @@ nav .controls .dashpill{
 
 }
 
-nav .controls .dashpill button{ 
+nav .controls button{ 
     font-size: smaller;
     padding: .8rem;
     border-color: var(--color-overlay);
@@ -168,25 +185,80 @@ nav .controls .dashpill button:last-child{
 }
 
 
-nav .controls .dashpill button:hover, nav .controls .dashpill button.active{
+nav .controls button:hover, nav .controls button.active{
     background-color: color-mix(in srgb, var(--page-color) 50%, var(--raised-color) 50%);
-    box-shadow: inset 0px 0px 15px var(--sunken-color);
+    box-shadow: inset 0px 0px 15px color-mix(in srgb, black 10%, var(--sunken-color) 90%);
+    /* box-shadow: inset 0px 0px 15px var(--sunken-color); */
     /* box-shadow: 0px 0px 3px var(--accent-color); */
 }
 
-nav .controls .dashpill button:active{
+nav .controls button:active{
     box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.3);
 }
 
-nav .controls .dashpill button svg{
+nav .controls button svg{
     height: 1.75em;
 }
 
-#theme-toggle{
+#theme-toggle, #menu-btn{
     background-color: var(--raised-color);
     padding: 0.4rem;
+    border-radius: 50%;
 }
 #theme-toggle svg{transform: rotate(var(--rt-value));}
+
+#menu-btn{display: none;}
+#menu-btn svg {
+    transition: all 0.5s ease-in-out;
+}
+
+#menu-btn svg.open {
+    transform: rotate(360deg);
+}
+
+.line {
+    transform-origin: center;
+    transform-box: fill-box;
+    transition: all 0.5s ease-in-out;
+}
+
+#menu-btn svg.open .top {
+    transform: translateY(7px) rotate(45deg) scaleX(1.06);
+}
+
+#menu-btn svg.open .middle {
+    transform: scaleX(0);
+    opacity: 0;
+}
+
+#menu-btn svg.open .bottom {
+    transform: translateY(-7px) rotate(-45deg) scaleX(1.06);
+}
+
+nav .pages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.1em;
+}
+
+
+nav .pages button{
+    font-size: smaller;
+    padding: .6rem;
+    box-shadow: none;
+    gap: 0.2em;
+    opacity: 0.6;
+    white-space: nowrap;
+}
+
+nav .pages button svg{
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+}
+
+
 
 /* .root{
     min-width: calc(100dvw-40px);
@@ -211,102 +283,194 @@ body {
 }
 
 .layout {
-    display: flex;
     position: relative;
-    height: calc(100vh - 5rem);
-}
+    height: calc(100dvh - 5rem);
 
-.sidebar-warp{
-    position: fixed;
-    
-    width: fit-content;
-    height: 100%;
-}
-
-.sidebar {
-    width: 260px;
-    max-width: 450px;
-    flex-shrink: 0;
-
-    display: fixed;
-
-    height: 100%;
-    overflow-y: auto;
+    overflow: auto;
     overflow-x: hidden;
 }
 
-.sidebar button.menu-btn{
-    all: unset;
-    float: right;
-    margin: 0.5em;
-    cursor: pointer;
-    transition: scale 0.1s ease-in-out;
-}
-
-.sidebar button.menu-btn:hover{
-    scale: 1.2;
-}
-
-.resize-handle {
-    width: 5px;
-    flex-shrink: 0;
-    cursor: col-resize;
-
-    float: right;
-
-    background-color: color-mix(in srgb,var(--color-charcoal) 50%, var(--color-whity0) 50%);
-
-}
-
-.content {
-    flex: 1;
-    min-width: 0;
-    height: 100%;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    scroll-behavior: smooth;
-}
-
-.floater{
+#sidebar{
     position: absolute;
-    background-color: var(--raised-color);
+    display: none;
+    
+    justify-content: center;
+    align-items: center;
 
-    margin: 0.3rem;
-    padding: 0.5rem;
+    height: 100%;
+    width: 100%;
+
+    background-color: color-mix(in srgb, var(--page-color) 50%, transparent 50%);
+    backdrop-filter: blur(5px) saturate(1.35) blur(10px);
+
+    transition: all 0.2s ease-in-out;
+    transform: translateX(100%);
+
+    box-sizing: border-box;
+    border-left: 2px solid color-mix(in srgb, transparent 50%, var(--ink-color) 50%);
+}
+
+#sidebar.open{
+    transform: translateX(0);
 }
 
 
-@media (max-width: 768px) {
-    .layout {
-        flex-direction: column;
-    }
+#sidebar .pages{
+    display: grid;
+    /* padding: 0 3em; */
 
-    .sidebar {
-        width: 100%;
-        min-width: 0;
-        max-width: none;
-        max-height: 35vh;
-        flex-shrink: 0;
-    }
+    gap: 2rem;
+    align-items: center;
+    justify-content: left;
+    justify-items: start;
+}
 
-    .resize-handle {
+#sidebar button{
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.6;
+}
+
+
+/* _____________________________________________________________________________ */
+
+/* shared by both menus */
+.pages { position: relative; }
+
+.pages::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 2px;
+    background: var(--ink-color);
+    border-radius: 2px;
+}
+
+.pages.ready::after {
+    transition: transform .3s ease, width .3s ease;
+}
+
+/* top nav: slides along X, pinned to the bottom edge */
+nav .pages::after {
+    --inset: 40px;
+    --transX: 0.7;
+    --lift: 5px;
+    bottom: 0;
+    width: calc(var(--w, var(--inset)) - var(--inset));
+    transform: translate(
+        calc(var(--x, 0px) + var(--transX) * var(--inset)),
+        calc(-1 * var(--lift))
+    );
+}
+
+/* sidebar: slides along Y, measured from the top */
+#sidebar .pages::after {
+    --drop: 6px;
+    top: 0;
+    width: var(--w, 0px);
+    transform: translate(
+        var(--x, 0px),
+        calc(var(--y, 0px) + var(--h, 0px) + var(--drop))
+    );
+}
+
+
+#sidebar .pages button:hover, #sidebar .pages button.active, nav .pages button:hover, nav .pages button.active{
+    opacity: 1;
+}
+
+#sidebar .pages button.active, nav .pages button.active{
+    filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 15px var(--glow-color));
+}
+
+/* _____________________________________________________________________________ */
+
+
+@media (max-width: 1224px) {
+    nav {
+        padding: 0px 2%;
+    }
+    nav .branding {
+        gap: 0.5rem;
+    }
+    nav .branding .logo{
+        height: 2.5rem;
+        width: 2.5rem;
+    }
+    nav .branding #name{
+        font-size: 1.75rem;
+    }
+    nav .pages {
+        gap: 0.5em;
+    }
+    nav .pages button {
+        padding: 0.6rem;
+    }
+    nav .pages button span {
         display: none;
     }
-
-    .content {
-        width: 100%;
-        flex: 1;
-        min-height: 0;
+    nav .pages button {
+        font-size: 0; 
+        gap: 0;
+    }
+    nav .pages button svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    nav .pages::after {
+        --inset: 20px;
+        --transX: 0.55;
     }
 }
 
-/* utility classes */
-
-
-button.menu-btn.scale-0 {
-    scale: 0;
+@media (max-width: 850px) {
+    nav .pages button span {
+        display: none;
+    }
+    nav .pages button {
+        font-size: 0; 
+        gap: 0;
+    }
+    nav .pages button svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+    nav .pages::after {
+        --inset: 20px;
+        --transX: 0.55;
+    }
 }
+
+@media (max-width: 750px) {
+    nav .branding #name{
+        font-size: 1.5rem;
+    }
+    nav .controls .dashpill button span{
+        display: none;
+    }
+    
+}
+
+@media (max-width: 650px) {
+    nav .pages{ display: none; }
+    #menu-btn{ display: flex; }
+    #sidebar{ display: flex; }
+
+}
+
+@media (max-width: 425px) {
+    nav .branding #name{
+        font-size: 1.25rem;
+    }
+    nav .controls .dashpill{
+        display: none;
+    }
+}
+
 
 /* _____Scrollbar__________________________________________________-- */
 
