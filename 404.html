@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Redirecting...</title>
     <script>
-        // Send the missing path to index.html as ?path=...
-        // Example: /notices/12?x=1#top  ->  /?path=%2Fnotices%2F12%3Fx%3D1%23top
-        const wanted = location.pathname + location.search + location.hash;
-        location.replace('/?path=' + encodeURIComponent(wanted));
+        // Loop guard: if we were already redirected once and still landed on a
+        // missing page, stop here instead of bouncing forever.
+        if (new URLSearchParams(location.search).has('path')) {
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.textContent = 'Page not found.';
+            });
+        } else {
+            // keep = how many leading path segments belong to the site's base:
+            //   1 -> GitHub project site (username.github.io/repo-name/...)
+            //   0 -> localhost, custom domain, or username.github.io user site
+            const keep = location.hostname.endsWith('github.io') ? 1 : 0;
+
+            // /repo-name/notices?x=1#top  ->  base "/repo-name", rest "/notices?x=1#top"
+            const parts = location.pathname.split('/');
+            const base = parts.slice(0, 1 + keep).join('/');
+            const rest = '/' + parts.slice(1 + keep).join('/') + location.search + location.hash;
+
+            // -> /repo-name/?path=%2Fnotices%3Fx%3D1%23top   (router.js restores the real URL)
+            location.replace(base + '/?path=' + encodeURIComponent(rest));
+        }
     </script>
 </head>
 <body>

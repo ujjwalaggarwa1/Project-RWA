@@ -382,11 +382,14 @@ nav .pages::after {
 }
 
 
-#sidebar .pages button:hover, #sidebar .pages button.active, nav .pages button:hover, nav .pages button.active{
+#sidebar .pages button:hover, #sidebar .pages button.active,
+nav .pages button:hover, nav .pages button.active,
+nav .pages button:focus-visible {
     opacity: 1;
 }
 
-#sidebar .pages button.active, nav .pages button.active{
+#sidebar .pages button.active > *,
+nav .pages button.active > * {
     filter: drop-shadow(0 0 10px var(--glow-color)) drop-shadow(0 0 15px var(--glow-color));
 }
 
@@ -435,6 +438,34 @@ nav .pages::after {
     nav .pages::after {
         --inset: 20px;
         --transX: 0.55;
+    }
+
+    nav .pages button { position: relative; }
+
+    nav .pages button::after {
+        content: attr(aria-label);
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 50%;
+        transform: translate(-50%, 4px);
+
+        padding: .35rem .6rem;
+        border-radius: .5rem;
+        background: var(--overlay-color);
+        color: var(--ink-color);
+        font-size: .75rem;
+        white-space: nowrap;
+        pointer-events: none;
+
+        opacity: 0;
+        transition: opacity .15s ease, transform .15s ease;
+    }
+
+    nav .pages button:hover::after,
+    nav .pages button:focus-visible::after {
+        opacity: 1;
+        transform: translate(-50%, 0);
+        transition-delay: .3s;
     }
 }
 

@@ -1,10 +1,24 @@
 // Undo the 404.html redirect: /?path=%2Feg -> /eg (no new history entry)
+
+// adding a base name system so github pages react properly
+const BASE = new URL("../", import.meta.url).pathname;
+
+// URL path without the base:  "/repo-name/notices" -> "/notices"
+export function currentPath() {
+    return location.pathname.slice(BASE.length - 1) || "/";
+}
+
+// App path with the base added:  "/notices" -> "/repo-name/notices"
+export function withBase(path) {
+    return BASE.slice(0, -1) + path;
+}
+
 const redirected = new URLSearchParams(location.search).get("path");
-if (redirected) history.replaceState(null, "", redirected);
+if (redirected) history.replaceState(null, "", withBase(redirected));
 
 let config;
 try {
-    const response = await fetch("/config.json");
+    const response = await fetch(`${BASE}config.json`);
     if (!response.ok) throw new Error(`config.json: ${response.status}`);
     config = await response.json();
 } catch (error) {
@@ -18,7 +32,7 @@ let latestRequest = 0; // protection against slow responses
 
 function page(file, parent_id) {
     const mine = ++latestRequest;
-    return fetch(`/pages/${file}.html`)
+    return fetch(`${BASE}pages/${file}.html`)
         .then(response => {
             if (!response.ok) throw new Error(`${file}.html: ${response.status}`);
             return response.text();
@@ -37,7 +51,7 @@ function page(file, parent_id) {
 function setActive() {
     document.querySelectorAll("[data-link]").forEach(el => {
         const target = el.dataset.link || el.getAttribute("href");
-        el.classList.toggle("active", target === location.pathname);
+        el.classList.toggle("active", target === currentPath());
     });
     updateIndicator();
 }
@@ -70,7 +84,7 @@ document.fonts?.ready.then(updateIndicator); // text width can change once fonts
 // Reads the URL, never receives a path as an argument.
 export function render() {
     setActive();
-    const file = routes[location.pathname] ?? notFound;
+    const file = routes[currentPath()] ?? notFound;
     return page(file, rootId);
 }
 

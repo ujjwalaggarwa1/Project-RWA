@@ -1,10 +1,10 @@
 
-import { render } from "./router.js";
+import { render, currentPath, withBase } from "./router.js";
 
 export function navigate(path) {
-    if (path === location.pathname) return;   // already here, nothing to do
-    history.pushState(null, "", path);        // change URL, no reload
-    render();                                 // pushState fires no event, so call it ourselves
+    if (path === currentPath()) return; // already here, nothing to do
+    history.pushState(null, "", withBase(path)); // change URL, no reload
+    render(); // pushState fires no event, so call it ourselves
 }
 
 // One listener for every link/button on the site.
