@@ -422,17 +422,18 @@ nav .pages button.active > * {
 }
 
 /* footer */
-footer {
+footer .creds, footer .disclaimer {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 
-    font-family: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
     border-top: 1px solid color-mix(in srgb, transparent 50%, var(--ink-color) 50%);
+    cursor: default;
+    text-wrap: balance;
 }
 
-footer span {
-    font-family: inherit;
+footer .creds span {
+    font-family: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
     text-transform: uppercase;
 
     background: linear-gradient(
@@ -451,6 +452,17 @@ footer span {
     -webkit-text-fill-color: transparent;
 
     animation: shine-move 2s cubic-bezier(0.87, 0, 0.13, 1) infinite;
+}
+
+footer .disclaimer {
+    justify-content: end;
+    padding: 0 5%;
+}
+
+footer .disclaimer a{
+    font-family: "Noto Serif Dives Akuru", Impact, 'Arial Narrow Bold', sans-serif;
+    color: inherit;
+    font-size: smaller;
 }
 
 /* _____________________________________________________________________________ */

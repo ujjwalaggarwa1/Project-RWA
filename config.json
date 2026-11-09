@@ -9,6 +9,7 @@
         "/maintenance": "maintenance",
         "/fee-calculator": "fee",
         "/booking": "booking",
-        "/complaints": "complaint"
+        "/complaints": "complaint",
+        "/about": "about"
         }
 }
