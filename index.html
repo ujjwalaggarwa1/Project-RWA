@@ -147,5 +147,26 @@
     <script type="module" src="./js/navigate.js"></script>
     <script src="./js/menu_btn.js" defer></script>
     <script src="./js/theme_handle.js"></script>
+
+    <!-- loads the site when everything is loaded -->
+    <script>
+        async function showSiteWhenReady() {
+        // Wait for HTML DOM structure + external stylesheets/images
+        if (document.readyState !== 'complete') {
+            await new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
+        }
+
+        // Wait for all @font-face custom fonts to finish loading
+        if (document.fonts) {
+            await document.fonts.ready;
+        }
+
+        // Reveal the document
+        document.body.classList.add('page-loaded');
+        }
+
+        // Execute check
+        showSiteWhenReady();
+    </script>
 </body>
 </html>

@@ -30,6 +30,15 @@
 
     --glow-color: #e3e6ff;
 
+    --height-page: calc(100dvh - 5rem);
+
+
+    --font-page: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --font-brand: "Nunito", "Zen Dots", "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+    --font-cred: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
+
 }
 
 .dark{
@@ -53,7 +62,7 @@
     padding: 0;
 
     transition: background-color 0.2s ease, color 0.2s ease; 
-    font-family: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: var(--font-page);
 }
 
 .pop{
@@ -69,6 +78,12 @@ body{
 
     background-color: var(--page-color);
     color: var(--ink-color);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+body.page-loaded {
+    opacity: 1;
 }
 
 button{
@@ -127,7 +142,7 @@ nav .branding{
 
 /* for some reason i had to put in full selector for this to pick up font */
 nav .branding .name #name{
-    font-family: "Nunito", "Zen Dots", "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-family: var(--font-brand);
 }
 
 nav .branding .logo{
@@ -274,9 +289,9 @@ nav .pages button svg{
 /* _____________________________________________________________________________ */
 
 
-.layout *{
-    /* border: 1px solid var(--ink-color); */
-}
+/* .layout *{
+    border: 1px solid var(--ink-color);
+} */
 
 html,
 body {
@@ -287,7 +302,7 @@ body {
 
 .layout {
     position: relative;
-    height: calc(100dvh - 5rem);
+    height: var(--height-page);
 
     overflow: auto;
     overflow-x: hidden;
@@ -398,13 +413,6 @@ nav .pages button.active > * {
 
 /* _____________________________________________________________________________ */
 /* pages-content */
-#content{
-    min-height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 
 /* 404 */
@@ -421,7 +429,59 @@ nav .pages button.active > * {
     fill: var(--ink-color0);
 }
 
-/* footer */
+/* overview */
+#overview{
+    height: var(--height-page);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+#overview .name{
+    font-family: var(--font-brand);
+    font-size: 3rem;
+
+    position: relative;
+    position: relative;
+    display: inline-block;
+    
+    padding-bottom: 10px; 
+}
+
+#overview .name::before,
+#overview .name::after {
+    content: '';
+    position: absolute;
+    background-color: var(--ink-color);
+
+    bottom: 0;
+    height: 4px;
+    width: 0; /* Start at 0 for animation */
+    animation: underMove 2s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+
+    transform: translateY(-12px);
+}
+
+/* Red (Left half) */
+#overview .name::before {
+    right: 50%;
+    border-radius: 4px 0 0 4px;
+}
+
+/* Green (Right half) */
+#overview .name::after {
+    left: 50%;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Each expands to 25%, producing a total underline of 50% */
+@keyframes underMove {
+    from { width: 0; }
+    to   { width: 50%; }
+}
+/* _footer________________________________________________________________________ */
 footer .creds, footer .disclaimer {
     display: flex;
     justify-content: space-evenly;
@@ -433,7 +493,7 @@ footer .creds, footer .disclaimer {
 }
 
 footer .creds span {
-    font-family: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
+    font-family: var(--font-cred);
     text-transform: uppercase;
 
     background: linear-gradient(
@@ -452,6 +512,15 @@ footer .creds span {
     -webkit-text-fill-color: transparent;
 
     animation: shine-move 2s cubic-bezier(0.87, 0, 0.13, 1) infinite;
+}
+
+@keyframes shine-move {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
 
 footer .disclaimer {
@@ -611,11 +680,3 @@ footer .disclaimer a{
 
 /* ____Animations__________________________________________________-- */
 
-@keyframes shine-move {
-    0% {
-        background-position: 200% center;
-    }
-    100% {
-        background-position: -200% center;
-    }
-}
