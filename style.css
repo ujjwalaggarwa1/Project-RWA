@@ -429,9 +429,11 @@ nav .pages button.active > * {
     fill: var(--ink-color0);
 }
 
-/* overview */
-#overview{
-    height: var(--height-page);
+
+
+/* overview, about _________________________*/
+#overview, #about{
+    min-height: var(--height-page);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -439,15 +441,18 @@ nav .pages button.active > * {
     flex-direction: column;
 }
 
-#overview .name{
+/* #overview .name{ position: relative; } */
+
+#overview .name, #about .name{
     font-family: var(--font-brand);
     font-size: 3rem;
 
     position: relative;
-    position: relative;
     display: inline-block;
     
-    padding-bottom: 10px; 
+    padding-bottom: 10px;
+    z-index: 3;
+
 }
 
 #overview .name::before,
@@ -459,28 +464,101 @@ nav .pages button.active > * {
     bottom: 0;
     height: 4px;
     width: 0; /* Start at 0 for animation */
-    animation: underMove 2s cubic-bezier(0.87, 0, 0.13, 1) forwards;
+    animation: underMove 1.5s cubic-bezier(0, 1.24, 0.52, 0.96) 1s forwards;
 
     transform: translateY(-12px);
 }
 
-/* Red (Left half) */
+
 #overview .name::before {
     right: 50%;
     border-radius: 4px 0 0 4px;
 }
 
-/* Green (Right half) */
+
 #overview .name::after {
     left: 50%;
     border-radius: 0 4px 4px 0;
 }
 
-/* Each expands to 25%, producing a total underline of 50% */
+
 @keyframes underMove {
     from { width: 0; }
-    to   { width: 50%; }
+    to   { width: 49%; }
 }
+
+
+
+/* about_____________________________ */
+
+#about{
+    overflow: hidden;
+    justify-content: start;
+    padding-top: 20px;
+}
+
+#about .heading{
+    width: 100%;
+    
+    display: flex;
+    /* position: fixed; */
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    /* animation: moveUp 0.5s linear 3.2s backwards; */
+}
+
+#about .name{
+    display: block;
+    animation: scaleUP 1.5s cubic-bezier(0.85, 0.15, 0.35, 0.98) 0.5s backwards;
+    z-index: 4;
+}
+
+#about .name::before{
+    content: '';
+    position: absolute;
+    top: 85%;
+    left: 0;
+    z-index: -2;
+    width: 100%;
+    height: 5px;
+    background-color: var(--ink-color);
+    border-radius: 10px;
+
+    animation: dominate 1s linear 2s backwards;
+}
+
+@keyframes scaleUP {
+    from {
+        scale: 6;
+        transform: translateY(150%);
+    }
+    to {
+        scale: 1;
+    }
+}
+
+@keyframes dominate {
+    0% {
+        /* height: var(--height-page); */
+        transform: scaleX(6) scaleY(600);
+        background-color: var(--surface-color);
+    }
+    
+    80%{
+        transform: scaleX(6) scaleY(1);
+        background-color: var(--surface-color);
+    }
+}
+
+@keyframes moveUp {
+    from{ transform: translateY(0%); }
+
+    to{ transform: translateY(-230%); }
+}
+
 /* _footer________________________________________________________________________ */
 footer .creds, footer .disclaimer {
     display: flex;
