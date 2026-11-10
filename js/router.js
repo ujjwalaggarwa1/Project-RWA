@@ -6,7 +6,6 @@
 const scriptPath = new URL(import.meta.url).pathname;
 const BASE = scriptPath.substring(0, scriptPath.lastIndexOf('/js/')) + '/';
 
-
 // URL path without the base:  "/repo-name/notices" -> "/notices"
 export function currentPath() {
     return location.pathname.slice(BASE.length - 1) || "/";
@@ -34,21 +33,38 @@ const { rootId, notFound, routes } = config;
 
 let latestRequest = 0; // protection against slow responses
 
-function page(file, parent_id) {
+async function page(file, parent_id) {
     const mine = ++latestRequest;
-    return fetch(`${BASE}pages/${file}.html`)
-        .then(response => {
-            if (!response.ok) throw new Error(`${file}.html: ${response.status}`);
-            return response.text();
-        })
-        .then(html => {
-            if (mine !== latestRequest) return; // a newer navigation won; drop this one
-            document.getElementById(parent_id).innerHTML = html;
-            setActive(); // buttons inside the new fragment now exist
-        })
-        .catch(error => {
-            console.error("Error loading page:", error);
-        });
+    const container = document.getElementById(parent_id);
+
+    // Briefly fade/hide the container while fetching
+    if (container) container.style.opacity = "0";
+
+    try {
+        const response = await fetch(`${BASE}pages/${file}.html`);
+        if (!response.ok) throw new Error(`${file}.html: ${response.status}`);
+        const html = await response.text();
+
+        if (mine !== latestRequest) return; // a newer navigation won; drop this one
+
+        if (container) {
+            container.innerHTML = html;
+        }
+
+        // Wait for custom fonts to settle before measuring nav/layout
+        if (document.fonts) await document.fonts.ready;
+
+        setActive(); // buttons inside the new fragment now exist
+
+        // Reveal the container cleanly once the DOM is injected
+        if (container) {
+            requestAnimationFrame(() => {
+                container.style.opacity = "1";
+            });
+        }
+    } catch (error) {
+        console.error("Error loading page:", error);
+    }
 }
 
 // Strip 'active' from every nav element, then give it to the one matching the URL.
@@ -58,6 +74,16 @@ function setActive() {
         el.classList.toggle("active", target === currentPath());
     });
     updateIndicator();
+}
+
+// Toggles footer visibility depending on whether the route ends with /about
+function toggleFooter() {
+    const footer = document.querySelector("footer");
+    if (!footer) return;
+
+    // Normalizes trailing slashes (e.g. "/about/" -> "/about")
+    const cleanPath = currentPath().replace(/\/$/, "");
+    footer.style.display = cleanPath.endsWith("/about") ? "none" : "";
 }
 
 // Measures the active nav button and hands its position/width to CSS as variables.
@@ -87,6 +113,7 @@ document.fonts?.ready.then(updateIndicator); // text width can change once fonts
 
 // Reads the URL, never receives a path as an argument.
 export function render() {
+    toggleFooter();
     setActive();
     const file = routes[currentPath()] ?? notFound;
     return page(file, rootId);
