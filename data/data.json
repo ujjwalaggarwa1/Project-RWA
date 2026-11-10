@@ -1,0 +1,108 @@
+{
+    "notices": {
+        "1": {
+            "priority-level": "high",
+            "heading": "Emergency Water Shutdown",
+            "description": "There will be a water shutdown on Monday due to main pipeline leakage repairs.",
+            "date": "10-11-2026"
+        },
+        "2": {
+            "priority-level": "medium",
+            "heading": "Association Meeting",
+            "description": "There will be an association meeting at the community hall on 15-11-2026 at 6 PM. Concerned people should come on time.",
+            "date": "11-11-2026"
+        },
+        "3": {
+            "priority-level": "low",
+            "heading": "Mosquito Fogging Schedule",
+            "description": "Routine mosquito fogging will be carried out across all blocks this Friday evening. Please keep your windows closed between 5 PM and 7 PM.",
+            "date": "11-11-2026"
+        },
+        "4": {
+            "priority-level": "medium",
+            "heading": "Lift Maintenance - Block B",
+            "description": "The service lift in Block B will be non-operational for scheduled servicing on 13-11-2026 from 10 AM to 2 PM.",
+            "date": "12-11-2026"
+        },
+        "5": {
+            "priority-level": "high",
+            "heading": "Mandatory ID Updates for Domestic Help",
+            "description": "All residents must submit updated Aadhaar copies for their maids, drivers, and cooks to the security office by 20-11-2026.",
+            "date": "12-11-2026"
+        }
+    },
+    
+    "maintenance": {
+        "A-101": {
+            "resident": "Manpreet",
+            "amount": 2000,
+            "due_date": "15-11-2026",
+            "status": ["paid", "11-11-2026"]
+        },
+        "A-102": {
+            "resident": "Vikram",
+            "amount": 2000,
+            "due_date": "15-11-2026",
+            "status": ["pending"]
+        },
+        "B-205": {
+            "resident": "Neha",
+            "amount": 2200,
+            "due_date": "15-10-2026",
+            "status": ["overdue", "late_fee_applied"]
+        },
+        "C-404": {
+            "resident": "Rajat",
+            "amount": 2500,
+            "due_date": "15-11-2026",
+            "status": ["paid", "10-11-2026"]
+        }
+    },
+
+    "bookings": {
+        "BKG-001": {
+            "facility": "Club House",
+            "flat": "A-101",
+            "resident": "Manpreet",
+            "event_type": "Birthday Party",
+            "booking_date": "18-11-2026",
+            "time_slot": "18:00 - 23:00",
+            "guest_count": 40,
+            "payment_status": "paid",
+            "approval_status": "confirmed"
+        },
+        "BKG-002": {
+            "facility": "Party Lawn",
+            "flat": "B-205",
+            "resident": "Neha",
+            "event_type": "Anniversary Dinner",
+            "booking_date": "22-11-2026",
+            "time_slot": "19:00 - 23:59",
+            "guest_count": 120,
+            "payment_status": "pending",
+            "approval_status": "awaiting_payment"
+        },
+        "BKG-003": {
+            "facility": "Club House",
+            "flat": "C-302",
+            "resident": "Anil",
+            "event_type": "Kids Get-Together",
+            "booking_date": "14-11-2026",
+            "time_slot": "10:00 - 14:00",
+            "guest_count": 25,
+            "payment_status": "paid",
+            "approval_status": "confirmed"
+        },
+        "BKG-004": {
+            "facility": "Party Lawn",
+            "flat": "A-501",
+            "resident": "Priya",
+            "event_type": "Corporate Meetup",
+            "booking_date": "28-11-2026",
+            "time_slot": "16:00 - 22:00",
+            "guest_count": 80,
+            "payment_status": "paid",
+            "approval_status": "rejected_noise_restrictions"
+        }
+    }
+}

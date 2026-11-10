@@ -200,6 +200,7 @@ nav .controls .dashpill button:first-child{
 nav .controls .dashpill button:last-child{
     border-top-right-radius: 0.75rem;
     border-bottom-right-radius: 0.75rem;
+    cursor: not-allowed;
 }
 
 
@@ -278,20 +279,7 @@ nav .pages button svg{
 
 
 
-/* .root{
-    min-width: calc(100dvw-40px);
-    min-height: 100dvh;
-    background: linear-gradient(0deg, oklch(25.59% 0.0703 261.56) 0.000% 4.762%, oklch(26.96% 0.0686 265.67) 4.762% 9.524%, oklch(28.83% 0.0663 271.18) 9.524% 14.286%, oklch(31.11% 0.0636 278.02) 14.286% 19.048%, oklch(33.73% 0.0607 286.11) 19.048% 23.810%, oklch(36.61% 0.0579 295.38) 23.810% 28.571%, oklch(39.90% 0.0546 306.44) 28.571% 33.333%, oklch(43.63% 0.0508 319.36) 33.333% 38.095%, oklch(47.60% 0.0470 333.19) 38.095% 42.857%, oklch(51.63% 0.0441 347.00) 42.857% 47.619%, oklch(55.51% 0.0427 359.84) 47.619% 52.381%, oklch(59.34% 0.0433 11.87) 52.381% 57.143%, oklch(63.26% 0.0454 23.71) 57.143% 61.905%, oklch(67.11% 0.0484 35.14) 61.905% 66.667%, oklch(70.75% 0.0514 45.93) 66.667% 71.429%, oklch(74.02% 0.0537 55.85) 71.429% 76.190%, oklch(77.00% 0.0555 65.22) 76.190% 80.952%, oklch(79.79% 0.0571 74.18) 80.952% 85.714%, oklch(82.27% 0.0586 82.28) 85.714% 90.476%, oklch(84.33% 0.0598 89.00) 90.476% 95.238%, oklch(85.83% 0.0606 93.89) 95.238% 100.000%);
-} */
-
-
-
 /* _____________________________________________________________________________ */
-
-
-/* .layout *{
-    border: 1px solid var(--ink-color);
-} */
 
 html,
 body {
@@ -300,12 +288,14 @@ body {
     overflow: hidden;
 }
 
+#content{ min-height: var(--height-page); }
+
 .layout {
     position: relative;
     height: var(--height-page);
 
     overflow: auto;
-    overflow-x: hidden;
+    /* overflow-x: hidden; */
 }
 
 #sidebar{
@@ -353,8 +343,6 @@ body {
     opacity: 0.6;
 }
 
-
-/* _____________________________________________________________________________ */
 
 /* shared by both menus */
 .pages { position: relative; }
@@ -432,16 +420,21 @@ nav .pages button.active > * {
 
 
 /* overview, about _________________________*/
-#overview, #about{
-    min-height: var(--height-page);
-    display: flex;
+#overview{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     justify-content: center;
-    align-items: center;
-
-    flex-direction: column;
+    padding: 10px;
+    place-items: center;
+    gap: 20px;
+    /* overflow: auto; */
 }
 
-/* #overview .name{ position: relative; } */
+#overview, #about{
+    min-height: var(--height-page);
+    align-items: center;
+    gap: 10px;
+}
 
 #overview .name, #about .name{
     font-family: var(--font-brand);
@@ -469,18 +462,15 @@ nav .pages button.active > * {
     transform: translateY(-12px);
 }
 
-
 #overview .name::before {
     right: 50%;
     border-radius: 4px 0 0 4px;
 }
 
-
 #overview .name::after {
     left: 50%;
     border-radius: 0 4px 4px 0;
 }
-
 
 @keyframes underMove {
     from { width: 0; }
@@ -488,24 +478,82 @@ nav .pages button.active > * {
 }
 
 
+.noticeBoard{
+    min-width: 45dvw;
+    min-height: 50dvh;
+    /* background-color: color-mix(in srgb, var(--sunken-color) 80%, rgb(0, 56, 0)); */
+    background-color: var(--surface-color);
+
+    border-radius: 30px;
+    border: 1px dashed color-mix(in srgb, var(--ink-color) 20%, transparent);
+    
+    display: flex;
+    justify-content: center;
+    /* padding: 10px; */
+}
+
+.noticeBoard h2{
+    margin: 10px;
+    text-decoration: underline;
+    font-family: "Short Stack", 'Poppins';
+}
+
+.collection{
+    min-width: 45dvw;
+    min-height: 50dvh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding: 0;
+    gap: 10px;
+}
+
+.collection > div{
+    margin: 0;
+    border-radius: 20px;
+    background-color: var(--surface-color);
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.collection > div:hover{
+    transform: translateY(-5%);
+}
+
+.collection .label{
+    display: inline-block;
+    padding: 30px;
+    transform:  translate(-50%, -50%) rotate(45deg);
+    background-color: #ffba00;
+}
+
+
+
+.collection .label svg{
+    transform: translate(150%, 30%) rotate(-45deg) ;
+}
 
 /* about_____________________________ */
 
 #about{
+    display: flex;
+    flex-direction: column;
+
     overflow: hidden;
     justify-content: start;
     padding-top: 20px;
 }
 
-#about .heading{
-    width: 100%;
-    
+#content .heading{
+    max-width: 100%;
+    margin: 20px;
     display: flex;
     /* position: fixed; */
     justify-content: center;
     align-items: center;
-
+    
     flex-direction: column;
+    grid-column: 1 / -1;
 
     /* animation: moveUp 0.5s linear 3.2s backwards; */
 }
@@ -706,6 +754,15 @@ footer .disclaimer a{
         display: none;
     }
     
+    #overview{
+        grid-template-columns: 1fr;
+    }
+    #overview h2 {
+        grid-column: span 1;
+    }
+    #overview > div{
+        width: 90dvw;
+    }
 }
 
 @media (max-width: 650px) {
