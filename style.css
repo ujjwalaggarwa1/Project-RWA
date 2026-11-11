@@ -35,7 +35,7 @@
 
     --font-page: "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
-    --font-brand: "Nunito", "Zen Dots", "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-brand: "Zen Dots" ,"Nunito", "Zen Dots", "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 
     --font-cred: "Goldman", Impact, 'Arial Narrow Bold', sans-serif;
 
@@ -79,7 +79,7 @@ body{
     background-color: var(--page-color);
     color: var(--ink-color);
     opacity: 0;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
 body.page-loaded {
@@ -107,7 +107,7 @@ button{
 }
 
 button *{
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
 nav{
@@ -228,7 +228,7 @@ nav .controls button svg{
 
 #menu-btn{display: none;}
 #menu-btn svg {
-    transition: all 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
 #menu-btn svg.open {
@@ -238,7 +238,7 @@ nav .controls button svg{
 .line {
     transform-origin: center;
     transform-box: fill-box;
-    transition: all 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
 #menu-btn svg.open .top {
@@ -295,11 +295,11 @@ body {
     height: var(--height-page);
 
     overflow: auto;
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
 }
 
 #sidebar{
-    position: absolute;
+    position: fixed;
     display: none;
     
     justify-content: center;
@@ -308,10 +308,12 @@ body {
     height: 100%;
     width: 100%;
 
+    z-index: 100;
+
     background-color: color-mix(in srgb, var(--page-color) 50%, transparent 50%);
     backdrop-filter: blur(5px) saturate(1.35) blur(10px);
 
-    transition: all 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease, color 0.2s ease;
     transform: translateX(100%);
 
     box-sizing: border-box;
@@ -357,7 +359,7 @@ body {
 }
 
 .pages.ready::after {
-    transition: transform .3s ease, width .3s ease;
+    transition: transform 0.3s ease, width 0.3s ease, background-color 0.2s ease, color 0.2s ease;
 }
 
 /* top nav: slides along X, pinned to the bottom edge */
@@ -404,6 +406,16 @@ nav .pages button.active > * {
 
 
 /* 404 */
+
+#p-404{
+    height: var(--height-page);
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
 
 .not-found-svg {
     width: 368px;
@@ -494,6 +506,7 @@ nav .pages button.active > * {
 
 .noticeBoard h2{
     margin: 10px;
+    height: fit-content;
     text-decoration: underline;
     font-family: "Short Stack", 'Poppins';
 }
@@ -513,7 +526,7 @@ nav .pages button.active > * {
     border-radius: 20px;
     background-color: var(--surface-color);
     overflow: hidden;
-    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease, color 0.2s ease;
 }
 
 .collection > div:hover{
@@ -717,7 +730,7 @@ footer .disclaimer a{
         pointer-events: none;
 
         opacity: 0;
-        transition: opacity .15s ease, transform .15s ease;
+        transition: opacity .15s ease, transform .15s ease, background-color 0.2s ease, color 0.2s ease;
     }
 
     nav .pages button:hover::after,

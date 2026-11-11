@@ -3,6 +3,9 @@
 // DYNAMIC BASE EXTRACTION:
 // This looks at the absolute script URL and cuts off the "/js/..." portion.
 // It mathematically guarantees the correct root on Localhost (/), Custom Domains (/), and Github Pages (/repo-name/)
+import { populate } from './data-loader.js';
+
+
 const scriptPath = new URL(import.meta.url).pathname;
 const BASE = scriptPath.substring(0, scriptPath.lastIndexOf('/js/')) + '/';
 
@@ -49,6 +52,7 @@ async function page(file, parent_id) {
 
         if (container) {
             container.innerHTML = html;
+            // await populate();
         }
 
         // Wait for custom fonts to settle before measuring nav/layout
