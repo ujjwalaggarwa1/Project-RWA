@@ -38,7 +38,8 @@ let latestRequest = 0; // protection against slow responses
 
 // config name reloader
 
-function updater(file='../config.json') {
+// the fetch function will use path relative to root html page not js file
+function updater(file='config.json') {
 
     fetch(file)
         .then(response => response.json())
