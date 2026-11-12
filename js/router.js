@@ -38,7 +38,7 @@ let latestRequest = 0; // protection against slow responses
 
 // config name reloader
 
-function updater(file='../config.json') {
+function updater(file='/config.json') {
 
     fetch(file)
         .then(response => response.json())
