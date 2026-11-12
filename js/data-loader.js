@@ -51,7 +51,6 @@ function renderNotices(notices) {
 
         html += `
             <div class="notice-card" data-id="${id}" style="--indi-color: ${bgColor};" >
-                <div class="indicator"></div>
                 <h4>${data.heading}</h4>
                 <p>${data.description}</p>
                 <span>${data.date}</span>

@@ -547,16 +547,20 @@ nav .pages button.active > * {
 .notices-list .notice-card{
     display: flex;
     flex-direction: column;
-
     position: relative;
+
     margin: 10px 0px;
     padding: 5px 20px;
+    overflow: visible;
 
-    border: 2px solid var(--indi-color);
+    border: 1px solid var(--indi-color);
     border-radius: 15px;
-    border-left: 2px solid transparent;
+    border-left: 6px solid var(--indi-color);
 
-    background-color: color-mix(in srgb, var(--indi-color) 10%, transparent);
+    /* background-color: color-mix(in srgb, var(--indi-color) 10%, transparent); */
+    background-color: var(--surface-color);
+    background: linear-gradient(135deg, color-mix(in srgb, var(--indi-color) 30%, transparent) 0%, 
+                                rgba(0, 0, 0, 0) 100%);
 }
 
 .notices-list .notice-card > h4{
@@ -574,21 +578,6 @@ nav .pages button.active > * {
     /* align-self: right; */
     font-family: var(--font-notImp);
     /* float: right; */
-}
-
-.noticeBoard .indicator {
-    position: absolute;
-    inset: 0;
-    transform: translateX(-2px);
-
-    width: 12px;
-    height: 100%;
-    border-top-left-radius: 25px;
-    border-bottom-left-radius: 25px;
-    display: inline-block;
-    margin-bottom: 8px;
-
-    background-color: var(--indi-color);
 }
 
 
