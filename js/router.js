@@ -3,6 +3,9 @@
 // DYNAMIC BASE EXTRACTION:
 // This looks at the absolute script URL and cuts off the "/js/..." portion.
 // It mathematically guarantees the correct root on Localhost (/), Custom Domains (/), and Github Pages (/repo-name/)
+import { populate } from './data-loader.js';
+
+
 const scriptPath = new URL(import.meta.url).pathname;
 const BASE = scriptPath.substring(0, scriptPath.lastIndexOf('/js/')) + '/';
 
@@ -33,6 +36,25 @@ const { rootId, notFound, routes } = config;
 
 let latestRequest = 0; // protection against slow responses
 
+// config name reloader
+
+function updater(file='../config.json') {
+
+    fetch(file)
+        .then(response => response.json())
+        .then(data => {
+            const els = document.querySelectorAll('.name');
+            els.forEach(el => {
+                el.textContent = data.name;
+            });
+        })
+        // handle error if the file is missing
+        .catch(error => {
+            console.error("Error loading config file:\n", error);
+        });
+}
+
+
 async function page(file, parent_id) {
     const mine = ++latestRequest;
     const container = document.getElementById(parent_id);
@@ -49,6 +71,8 @@ async function page(file, parent_id) {
 
         if (container) {
             container.innerHTML = html;
+            await populate();
+            updater();
         }
 
         // Wait for custom fonts to settle before measuring nav/layout
