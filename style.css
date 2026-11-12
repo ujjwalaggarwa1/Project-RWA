@@ -141,7 +141,7 @@ nav .branding{
 }
 
 /* for some reason i had to put in full selector for this to pick up font */
-nav .branding .name #name{
+.name{
     font-family: var(--font-brand);
 }
 
