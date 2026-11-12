@@ -4,7 +4,7 @@ export async function populate() {
     let localData = { notices: {}, maintenance: {}, bookings: {} };
 
     try {
-        const response = await fetch('../data/data.json');
+        const response = await fetch('/data/data.json');
         if (response.ok) {
             serverData = await response.json();
         }
@@ -47,7 +47,7 @@ function renderNotices(notices) {
     for (const [id, data] of Object.entries(notices)) {
         // Map priority string to a CSS color class
         const bgColor = data['priority-level'] === 'high' ? '#ef4444' : 
-                           data['priority-level'] === 'medium' ? '#eab308' : '#3b82f6';
+                        data['priority-level'] === 'medium' ? '#eab308' : '#3b82f6';
 
         html += `
             <div class="notice-card" data-id="${id}" style="--indi-color: ${bgColor};" >
