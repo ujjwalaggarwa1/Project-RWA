@@ -43,14 +43,15 @@ function renderNotices(notices) {
     if (!container) return; // Skip if this container isn't on the current page
 
     let html = '';
+    
     for (const [id, data] of Object.entries(notices)) {
         // Map priority string to a CSS color class
-        const colorClass = data['priority-level'] === 'high' ? 'bg-red' : 
-                           data['priority-level'] === 'medium' ? 'bg-yellow' : 'bg-blue';
+        const bgColor = data['priority-level'] === 'high' ? '#ef4444' : 
+                           data['priority-level'] === 'medium' ? '#eab308' : '#3b82f6';
 
         html += `
-            <div class="notice-card" data-id="${id}">
-                <div class="indicator ${colorClass}"></div>
+            <div class="notice-card" data-id="${id}" style="--indi-color: ${bgColor};" >
+                <div class="indicator"></div>
                 <h4>${data.heading}</h4>
                 <p>${data.description}</p>
                 <span>${data.date}</span>
