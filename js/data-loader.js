@@ -4,7 +4,7 @@ export async function populate() {
     let localData = { notices: {}, maintenance: {}, bookings: {} };
 
     try {
-        const response = await fetch('/data/data.json'); // the fetch function will use path relative to root html page not js file
+        const response = await fetch('data/data.json'); // the fetch function will use path relative to root html page not js file
         if (response.ok) {
             serverData = await response.json();
         }
