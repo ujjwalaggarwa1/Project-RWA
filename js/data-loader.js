@@ -4,7 +4,7 @@ export async function populate() {
     let localData = { notices: {}, maintenance: {}, bookings: {} };
 
     try {
-        const response = await fetch('/data/data.json');
+        const response = await fetch('../data/data.json');
         if (response.ok) {
             serverData = await response.json();
         }
