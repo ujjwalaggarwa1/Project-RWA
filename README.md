@@ -230,7 +230,7 @@ Routes are defined in `config.json` and map URL paths to HTML fragment files in 
 | `/fee-calculator` | `pages/fee.html` | 🚧 In development |
 | `/booking` | `pages/booking.html` | 🚧 In development |
 | `/complaints` | `pages/complaint.html` | 🚧 In development |
-| `/about` | `pages/about.html` | ✅ Done |
+| `/about` | `pages/about.html` | 🚧 In development |
 | *(any unknown route)* | `pages/404.html` | ✅ Done |
 
 > **Note:** Pages marked 🚧 currently render only a placeholder text. Full UI for those sections is yet to be built.
