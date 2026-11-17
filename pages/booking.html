@@ -1,3 +1,99 @@
-<section>
-    booking
+<section id="booking">
+
+    <!-- reserve a new booking form -->
+    <div id="bk-modal-overlay" class="hidden">
+        <div id="bk-modal">
+            <h3 id="bk-modal-title">Reserve Facility</h3>
+
+            <div class="modal-slot-info" id="bk-modal-slot-info">
+                <!-- JS fills: date + slot label/time -->
+            </div>
+
+            <div class="form-error" id="bk-form-error"></div>
+
+            <div class="form-row">
+                <div>
+                    <label for="bk-resident">Your name</label>
+                    <input id="bk-resident" type="text" placeholder="Full name" maxlength="80" autocomplete="name" />
+                </div>
+                <div>
+                    <label for="bk-flat">Flat number</label>
+                    <input id="bk-flat" type="text" placeholder="A-101" maxlength="20" />
+                </div>
+            </div>
+
+            <label for="bk-event">Event type</label>
+            <input id="bk-event" type="text" placeholder="Birthday Party, Function…" maxlength="80" />
+
+            <label for="bk-guests">Expected guests</label>
+            <input id="bk-guests" type="number" min="0" max="1000" value="0" />
+
+            <div class="modal-actions">
+                <button class="btn-cancel-modal" id="bk-modal-close">Cancel</button>
+                <button class="btn-submit" id="bk-form-submit">Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="booking-header">
+        <div>
+            <h1>Facility Bookings</h1>
+            <p>Pick a date and time slot to reserve a facility for your event.</p>
+        </div>
+
+        <div class="amenity-tabs" id="bk-amenity-tabs">
+            <button class="active" data-amenity="Club House">Club House</button>
+            <button data-amenity="Party Lawn">Party Lawn</button>
+        </div>
+    </div>
+
+    <!-- calendar and slot -->
+    <div class="booking-grid">
+
+        <!-- interactive calendar -->
+        <div class="bk-card">
+            <div class="month-nav">
+                <button id="bk-prev-month" aria-label="Previous month">&#8249;</button> <!-- prev arrow -->
+                <span id="bk-month-label"></span>
+                <button id="bk-next-month" aria-label="Next month">&#8250;</button> <!-- next arrow -->
+            </div>
+
+            <div class="weekday-row">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+            </div>
+
+            <div class="date-grid" id="bk-date-grid">
+                <!-- filled by JS -->
+            </div>
+        </div>
+
+        <!-- slot list for the selected day -->
+        <div class="bk-card day-panel">
+            <h2 id="bk-day-label">Select a date</h2>
+            <p class="day-hint" id="bk-day-hint">Click a date on the calendar to see available slots.</p>
+            <ul class="slots-list" id="bk-slots-list">
+                <!-- filled by JS -->
+            </ul>
+        </div>
+    </div>
+
+    
+    <!-- all bookings -->
+    <div class="all-bookings-section">
+        <h1>All Bookings</h1>
+
+        <div class="filter-row">
+            <span>Filter:</span>
+            <button class="filter-chip active" data-filter="all">All</button>
+            <button class="filter-chip" data-filter="Club House">Club House</button>
+            <button class="filter-chip" data-filter="Party Lawn">Party Lawn</button>
+            <button class="filter-chip" data-filter="confirmed">Confirmed</button>
+            <button class="filter-chip" data-filter="awaiting_payment">Awaiting</button>
+        </div>
+
+        <!-- data-loader.js → renderBookings() writes here on every populate() call -->
+        <div class="bookings-list"></div>
+    </div>
+
 </section>
