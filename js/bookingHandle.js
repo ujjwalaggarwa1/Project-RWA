@@ -198,24 +198,6 @@ export function initBookingPage(mergedBookings) {
     }
 
 
-    // --- Filter chips ---
-    // Bookings are already in the DOM (rendered by renderBookings above).
-    // Filtering is done by toggling visibility on the existing cards
-    // using their data-facility and data-approval attributes — no re-render.
-
-    function applyFilter(filterValue) {
-        const cards = document.querySelectorAll('.bookings-list .booking-card');
-        cards.forEach(card => {
-            if (filterValue === 'all') {
-                card.hidden = false;
-                return;
-            }
-            const matchFacility = card.dataset.facility === filterValue;
-            const matchApproval = card.dataset.approval === filterValue;
-            card.hidden = !matchFacility && !matchApproval;
-        });
-    }
-
 
     // --- Modal ---
 
@@ -277,10 +259,6 @@ export function initBookingPage(mergedBookings) {
 
         // Re-render the bookings list with the new entry appended
         renderBookings(cachedBookings);
-
-        // Re-apply the current filter so the new card obeys it too
-        const activeChip = document.querySelector('.filter-chip.active');
-        if (activeChip) applyFilter(activeChip.dataset.filter);
     }
 
 
@@ -357,20 +335,8 @@ export function initBookingPage(mergedBookings) {
         renderDayPanel();
     });
 
-    // Filter chips — delegated to the filter-row container
-    // Uses show/hide on existing cards (data-facility / data-approval attrs),
-    // so no re-render is needed when switching filters.
-    document.querySelector('.filter-row').addEventListener('click', e => {
-        const chip = e.target.closest('.filter-chip');
-        if (!chip) return;
-        document.querySelectorAll('.filter-chip').forEach(c =>
-            c.classList.toggle('active', c === chip));
-        applyFilter(chip.dataset.filter);
-    });
-
-
     // --- Initial render ---
     renderCalendar();
     renderDayPanel();
-    // renderBookings() already ran above (from populate); applyFilter('all') is the default
+    // renderBookings() already ran above (from populate)
 }

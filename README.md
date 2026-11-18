@@ -224,11 +224,11 @@ Routes are defined in `config.json` and map URL paths to HTML fragment files in 
 
 | Route | Fragment File | Status |
 |---|---|---|
-| `/` | `pages/overview.html` | ✅ Done |
+| `/` | `pages/overview.html` | 🚧 In development |
 | `/notices` | `pages/notices.html` | ✅ Done |
 | `/maintenance` | `pages/maintenance.html` | 🚧 In development |
 | `/fee-calculator` | `pages/fee.html` | 🚧 In development |
-| `/booking` | `pages/booking.html` | 🚧 In development |
+| `/booking` | `pages/booking.html` | ✅ Done |
 | `/complaints` | `pages/complaint.html` | 🚧 In development |
 | `/about` | `pages/about.html` | 🚧 In development |
 | *(any unknown route)* | `pages/404.html` | ✅ Done |

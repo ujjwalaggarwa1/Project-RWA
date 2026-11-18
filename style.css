@@ -1001,50 +1001,6 @@ nav .pages button.active > * {
 }
 
 
-/* filter chips */
-
-#booking .filter-row{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-#booking .filter-row > span{
-    font-size: 0.75rem;
-    font-weight: 600;
-    opacity: 0.5;
-    margin-right: 0.25rem;
-}
-
-#booking .filter-chip{
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.8rem;
-    border-radius: 999px;
-
-    border: 1px solid color-mix(in srgb, var(--ink-color) 20%, transparent);
-    background: transparent;
-    color: var(--ink-color);
-
-    /* flatten global shadow */
-    box-shadow: none;
-    opacity: 0.6;
-    cursor: pointer;
-
-    transition: background-color 0.15s ease, opacity 0.15s ease;
-}
-
-#booking .filter-chip:hover{ opacity: 1; }
-
-#booking .filter-chip.active{
-    background-color: var(--accent-color);
-    color: oklch(1 0 0);
-    border-color: transparent;
-    opacity: 1;
-}
-
 
 /* booking cards — mirrors .notice-card structure exactly */
 
