@@ -1221,13 +1221,13 @@ nav .pages button.active > * {
     padding-top: 20px;
 }
 
-#about .name{
+#about h1{
     display: block;
     animation: scaleUP 1.5s cubic-bezier(0.85, 0.15, 0.35, 0.98) 0.5s backwards;
     z-index: 4;
 }
 
-#about .name::before{
+#about h1::before{
     content: '';
     position: absolute;
     top: 85%;

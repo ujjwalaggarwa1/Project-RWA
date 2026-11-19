@@ -364,6 +364,7 @@ Built as a group project at **Lovely Professional University (LPU)**.
 | **Ujjwal** | Lead Developer |
 | **Anshul** | Contributor |
 | **Mayank** | Contributor |
+| **Manpreet** | Contributor |
 
 *(For the curious: `git blame` tells its own story.)*
 
