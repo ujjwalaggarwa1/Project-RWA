@@ -338,7 +338,7 @@ The dev server is configured for **full-page reload** on every file save (Vite's
         "/": "overview",
         "/notices": "notices",
         "/maintenance": "maintenance",
-        "/fee-calculator": "fee",
+        // "/fee-calculator": "fee", dropped
         "/booking": "booking",
         "/complaints": "complaint",
         "/about": "about"
