@@ -1,3 +1,147 @@
-<section>
-    complaints
+<section id="complaint">
+  <!-- Modal for filing a new complaint -->
+  <div id="cmp-modal-overlay" class="hidden">
+    <div id="cmp-modal" class="custom-modal">
+      <h3 id="cmp-modal-title">File a Complaint</h3>
+      <p class="modal-subtext">
+        Submit your issue to the Resident Welfare Association committee.
+      </p>
+
+      <div class="form-error" id="cmp-form-error"></div>
+
+      <div class="form-row">
+        <div>
+          <label for="cmp-resident">Your Name</label>
+          <input
+            id="cmp-resident"
+            type="text"
+            placeholder="Full Name"
+            maxlength="80"
+            autocomplete="name"
+          />
+        </div>
+        <div>
+          <label for="cmp-flat">Flat Number</label>
+          <input
+            id="cmp-flat"
+            type="text"
+            placeholder="e.g. B-205"
+            maxlength="20"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="cmp-category">Category</label>
+          <select id="cmp-category">
+            <option value="Plumbing">Plumbing</option>
+            <option value="Electrical">Electrical</option>
+            <option value="Common Area">Common Area</option>
+            <option value="Sanitation">Sanitation</option>
+            <option value="Noise">Noise</option>
+            <option value="Security">Security</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label for="cmp-priority">Priority</label>
+          <select id="cmp-priority">
+            <option value="low">Low (Routine)</option>
+            <option value="medium" selected>Medium (Standard)</option>
+            <option value="high">High (Urgent)</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="cmp-title">Complaint Title</label>
+      <input
+        id="cmp-title"
+        type="text"
+        placeholder="Short summary of the issue"
+        maxlength="100"
+      />
+
+      <label for="cmp-desc">Detailed Description</label>
+      <textarea
+        id="cmp-desc"
+        rows="3"
+        placeholder="Explain the problem, location, and relevant details..."
+        maxlength="500"
+      ></textarea>
+
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" id="cmp-modal-close">Cancel</button>
+        <button class="btn-submit" id="cmp-form-submit">
+          Submit Complaint
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Action -->
+  <div class="page-header">
+    <div>
+      <h1>Complaints & Grievances</h1>
+      <p>
+        Log maintenance issues, common facility faults, and neighborhood
+        complaints.
+      </p>
+    </div>
+    <button class="btn-primary-action" id="btn-open-complaint-modal">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 5v14M5 12h14" />
+      </svg>
+      <span>Lodge Complaint</span>
+    </button>
+  </div>
+
+  <!-- Metrics / Stats Row -->
+  <div class="metrics-row">
+    <div class="metric-pill">
+      <span class="metric-num" id="stat-total-complaints">0</span>
+      <span class="metric-label">Total Logged</span>
+    </div>
+    <div class="metric-pill status-open">
+      <span class="metric-num" id="stat-open-complaints">0</span>
+      <span class="metric-label">Open</span>
+    </div>
+    <div class="metric-pill status-progress">
+      <span class="metric-num" id="stat-progress-complaints">0</span>
+      <span class="metric-label">In Progress</span>
+    </div>
+    <div class="metric-pill status-resolved">
+      <span class="metric-num" id="stat-resolved-complaints">0</span>
+      <span class="metric-label">Resolved</span>
+    </div>
+  </div>
+
+  <!-- Filter chips -->
+  <div class="filter-row" id="cmp-filter-row">
+    <span>Filter:</span>
+    <button class="filter-chip active" data-filter="all">All</button>
+    <button class="filter-chip" data-filter="open">Open</button>
+    <button class="filter-chip" data-filter="in_progress">In Progress</button>
+    <button class="filter-chip" data-filter="resolved">Resolved</button>
+    <button class="filter-chip" data-filter="Plumbing">Plumbing</button>
+    <button class="filter-chip" data-filter="Electrical">Electrical</button>
+    <button class="filter-chip" data-filter="Common Area">Common Area</button>
+    <button class="filter-chip" data-filter="Sanitation">Sanitation</button>
+    <button class="filter-chip" data-filter="Noise">Noise</button>
+  </div>
+
+  <!-- Cards container -->
+  <div class="complaints-list">
+    <!-- Rendered by js/data-loader.js -> renderComplaints() -->
+  </div>
 </section>

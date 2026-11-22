@@ -46,33 +46,33 @@ The app is built as a **vanilla JS SPA** using the browser's native `History API
 
 ## Features
 
-| Feature | Description |
-|---|---|
-| 📋 **Notices Board** | Society announcements with priority levels (high / medium / low) color-coded visually |
-| 🔧 **Maintenance Dues** | Flat-wise payment status (paid, pending, overdue) |
-| 📅 **Facility Bookings** | View bookings for Club House, Party Lawn, etc. with approval status |
-| 🛠️ **Complaints** | Register and track resident complaints *(page in development)* |
-| 🧮 **Fee Calculator** | Utility to calculate maintenance fees *(page in development)* |
-| 👤 **Resident / Admin Toggle** | UI pill to switch between resident and admin views |
-| 🌙 **Dark / Light Theme** | Animated icon transition through 7 SVG states; preference persisted in `localStorage` |
-| 📱 **Fully Responsive** | Collapsible sidebar navigation on mobile (≤650px), tooltips on medium screens |
-| ⚡ **SPA Navigation** | Zero full-page reloads; browser back/forward buttons work correctly |
-| 💾 **localStorage Simulation** | New entries created in the UI are saved locally and merged with static data |
-| 🌐 **GitHub Pages Ready** | Custom `404.html` redirect trick for deep-link support on static hosts |
+| Feature                        | Description                                                                           |
+| ------------------------------ | ------------------------------------------------------------------------------------- |
+| 📋 **Notices Board**           | Society announcements with priority levels (high / medium / low) color-coded visually |
+| 🔧 **Maintenance Dues**        | Flat-wise payment status (paid, pending, overdue)                                     |
+| 📅 **Facility Bookings**       | View bookings for Club House, Party Lawn, etc. with approval status                   |
+| 🛠️ **Complaints**              | Register and track resident complaints _(page in development)_                        |
+| 🧮 **Fee Calculator**          | Utility to calculate maintenance fees _(page in development)_                         |
+| 👤 **Resident / Admin Toggle** | UI pill to switch between resident and admin views                                    |
+| 🌙 **Dark / Light Theme**      | Animated icon transition through 7 SVG states; preference persisted in `localStorage` |
+| 📱 **Fully Responsive**        | Collapsible sidebar navigation on mobile (≤650px), tooltips on medium screens         |
+| ⚡ **SPA Navigation**          | Zero full-page reloads; browser back/forward buttons work correctly                   |
+| 💾 **localStorage Simulation** | New entries created in the UI are saved locally and merged with static data           |
+| 🌐 **GitHub Pages Ready**      | Custom `404.html` redirect trick for deep-link support on static hosts                |
 
 ---
 
 ## Tech Stack
 
-| Layer | Technology |
-|---|---|
-| Runtime | Vanilla JavaScript (ES Modules) |
-| Styling | Custom CSS (CSS custom properties, `oklch` colors, `@keyframes`) |
-| Fonts | Google Fonts — Poppins, Goldman, Nunito, Short Stack, Noto Serif Dives Akuru |
-| Icons | Inline SVG (Lucide icon set) |
-| Dev Server | [Vite](https://vitejs.dev/) (dev only — no bundling used in the final output) |
-| Data ("Backend") | Static JSON files + `localStorage` for simulated additions |
-| Hosting | GitHub Pages / any static file host |
+| Layer            | Technology                                                                    |
+| ---------------- | ----------------------------------------------------------------------------- |
+| Runtime          | Vanilla JavaScript (ES Modules)                                               |
+| Styling          | Custom CSS (CSS custom properties, `oklch` colors, `@keyframes`)              |
+| Fonts            | Google Fonts — Poppins, Goldman, Nunito, Short Stack, Noto Serif Dives Akuru  |
+| Icons            | Inline SVG (Lucide icon set)                                                  |
+| Dev Server       | [Vite](https://vitejs.dev/) (dev only — no bundling used in the final output) |
+| Data ("Backend") | Static JSON files + `localStorage` for simulated additions                    |
+| Hosting          | GitHub Pages / any static file host                                           |
 
 > **Note:** Vite is used **only as a development server** with hot-reload (full-page reload on save). The project does **not** use any Vite build pipeline, bundlers, or transpilers — the source files are served as-is.
 
@@ -156,6 +156,7 @@ Key design decisions:
 **`js/navigate.js`** handles all in-app link clicks via **event delegation** on `document`.
 
 Any element with a `data-link` attribute (button or anchor) triggers navigation:
+
 ```html
 <a href="/notices" data-link>Notices</a>
 <button data-link="/about">About</button>
@@ -170,6 +171,7 @@ The module wraps `history.pushState` and manually calls `render()` since `pushSt
 **`js/data-loader.js`** exports a single `populate()` function called after every page load. This module is the core of the project's backend simulation strategy.
 
 Data flow:
+
 ```
 data/data.json  ──┐  (predefined "API" data — simulates a server response)
                   ├──►  merge (localStorage wins on ID collision)  ──►  render into DOM
@@ -222,16 +224,16 @@ This means deep-links like `https://user.github.io/Project-RWA/notices` work cor
 
 Routes are defined in `config.json` and map URL paths to HTML fragment files in `pages/`:
 
-| Route | Fragment File | Status |
-|---|---|---|
-| `/` | `pages/overview.html` | 🚧 In development |
-| `/notices` | `pages/notices.html` | ✅ Done |
-| `/maintenance` | `pages/maintenance.html` | 🚧 In development |
-| `/fee-calculator` | `pages/fee.html` | 🚧 In development |
-| `/booking` | `pages/booking.html` | ✅ Done |
-| `/complaints` | `pages/complaint.html` | 🚧 In development |
-| `/about` | `pages/about.html` | 🚧 In development |
-| *(any unknown route)* | `pages/404.html` | ✅ Done |
+| Route                 | Fragment File            | Status            |
+| --------------------- | ------------------------ | ----------------- |
+| `/`                   | `pages/overview.html`    | 🚧 In development |
+| `/notices`            | `pages/notices.html`     | ✅ Done           |
+| `/maintenance`        | `pages/maintenance.html` | ✅ Done           |
+| `/fee-calculator`     | `pages/fee.html`         | 🚧 In development |
+| `/booking`            | `pages/booking.html`     | ✅ Done           |
+| `/complaints`         | `pages/complaint.html`   | ✅ Done           |
+| `/about`              | `pages/about.html`       | 🚧 In development |
+| _(any unknown route)_ | `pages/404.html`         | ✅ Done           |
 
 > **Note:** Pages marked 🚧 currently render only a placeholder text. Full UI for those sections is yet to be built.
 
@@ -285,27 +287,27 @@ User-added entries via the UI follow the same schema and are stored under the `r
 
 `style.css` uses a **semantic CSS custom property** layer:
 
-| Token | Light | Dark | Meaning |
-|---|---|---|---|
-| `--sunken-color` | lightest warm white | darkest charcoal | Recessed surfaces |
-| `--page-color` | warm white | dark charcoal | Base page background |
-| `--surface-color` | slightly lighter | slightly lighter | Card/panel surfaces |
-| `--raised-color` | lighter still | lighter still | Elevated UI elements |
-| `--overlay-color` | pure white | lightest charcoal | Topmost elements |
-| `--ink-color` | near-black | near-white | Primary text |
-| `--accent-color` | blue (`oklch 54.6%`) | *(same)* | Interactive accent |
+| Token             | Light                | Dark              | Meaning              |
+| ----------------- | -------------------- | ----------------- | -------------------- |
+| `--sunken-color`  | lightest warm white  | darkest charcoal  | Recessed surfaces    |
+| `--page-color`    | warm white           | dark charcoal     | Base page background |
+| `--surface-color` | slightly lighter     | slightly lighter  | Card/panel surfaces  |
+| `--raised-color`  | lighter still        | lighter still     | Elevated UI elements |
+| `--overlay-color` | pure white           | lightest charcoal | Topmost elements     |
+| `--ink-color`     | near-black           | near-white        | Primary text         |
+| `--accent-color`  | blue (`oklch 54.6%`) | _(same)_          | Interactive accent   |
 
 Colors are defined in **`oklch` color space** for perceptual uniformity across light and dark variants.
 
 **Responsive breakpoints:**
 
-| Breakpoint | Behaviour |
-|---|---|
+| Breakpoint | Behaviour                                                     |
+| ---------- | ------------------------------------------------------------- |
 | `≤ 1224px` | Nav text labels hidden; icons only with CSS tooltips on hover |
-| `≤ 850px` | Dashpill role-toggle labels hidden |
-| `≤ 750px` | Overview switches to single-column grid |
-| `≤ 650px` | Top nav hidden; hamburger menu + sidebar activated |
-| `≤ 425px` | Resident/Admin toggle pill hidden |
+| `≤ 850px`  | Dashpill role-toggle labels hidden                            |
+| `≤ 750px`  | Overview switches to single-column grid                       |
+| `≤ 650px`  | Top nav hidden; hamburger menu + sidebar activated            |
+| `≤ 425px`  | Resident/Admin toggle pill hidden                             |
 
 ---
 
@@ -331,27 +333,27 @@ The dev server is configured for **full-page reload** on every file save (Vite's
 
 ```json
 {
-    "name": "Neighbourly",
-    "rootId": "content",
-    "notFound": "404",
-    "routes": {
-        "/": "overview",
-        "/notices": "notices",
-        "/maintenance": "maintenance",
-        // "/fee-calculator": "fee", dropped
-        "/booking": "booking",
-        "/complaints": "complaint",
-        "/about": "about"
-    }
+  "name": "Neighbourly",
+  "rootId": "content",
+  "notFound": "404",
+  "routes": {
+    "/": "overview",
+    "/notices": "notices",
+    "/maintenance": "maintenance",
+    // "/fee-calculator": "fee", dropped
+    "/booking": "booking",
+    "/complaints": "complaint",
+    "/about": "about"
+  }
 }
 ```
 
-| Key | Purpose |
-|---|---|
-| `name` | Society/app name displayed in the navbar and page titles |
-| `rootId` | ID of the DOM element where page fragments are injected |
-| `notFound` | Fragment filename to show for unrecognized routes |
-| `routes` | Map of URL path → HTML fragment filename (without `.html`) |
+| Key        | Purpose                                                    |
+| ---------- | ---------------------------------------------------------- |
+| `name`     | Society/app name displayed in the navbar and page titles   |
+| `rootId`   | ID of the DOM element where page fragments are injected    |
+| `notFound` | Fragment filename to show for unrecognized routes          |
+| `routes`   | Map of URL path → HTML fragment filename (without `.html`) |
 
 ---
 
@@ -359,14 +361,14 @@ The dev server is configured for **full-page reload** on every file save (Vite's
 
 Built as a group project at **Lovely Professional University (LPU)**.
 
-| Name | Role |
-|---|---|
-| **Ujjwal** | Lead Developer |
-| **Anshul** | Contributor |
-| **Mayank** | Contributor |
-| **Manpreet** | Contributor |
+| Name         | Role           |
+| ------------ | -------------- |
+| **Ujjwal**   | Lead Developer |
+| **Anshul**   | Contributor    |
+| **Mayank**   | Contributor    |
+| **Manpreet** | Contributor    |
 
-*(For the curious: `git blame` tells its own story.)*
+_(For the curious: `git blame` tells its own story.)_
 
 ---
 
