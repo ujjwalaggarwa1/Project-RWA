@@ -1,3 +1,189 @@
-<section>
-    maintenance
+<section id="maintenance">
+  <!-- Payment / Dues Clear Modal -->
+  <div id="maint-modal-overlay" class="hidden">
+    <div id="maint-modal" class="custom-modal">
+      <h3 id="maint-modal-title">Record Dues Payment</h3>
+      <p class="modal-subtext" id="maint-modal-subtitle">
+        Clear society maintenance dues and record receipt.
+      </p>
+
+      <div class="form-error" id="maint-form-error"></div>
+
+      <div class="form-row">
+        <div>
+          <label for="maint-flat">Flat Number</label>
+          <input
+            id="maint-flat"
+            type="text"
+            placeholder="e.g. B-205"
+            maxlength="20"
+          />
+        </div>
+        <div>
+          <label for="maint-resident">Resident Name</label>
+          <input
+            id="maint-resident"
+            type="text"
+            placeholder="Full Name"
+            maxlength="80"
+            autocomplete="name"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div>
+          <label for="maint-amount">Amount (₹)</label>
+          <input
+            id="maint-amount"
+            type="number"
+            min="100"
+            max="100000"
+            placeholder="2000"
+          />
+        </div>
+        <div>
+          <label for="maint-method">Payment Mode</label>
+          <select id="maint-method">
+            <option value="UPI">UPI / QR Code</option>
+            <option value="Net Banking">Net Banking (IMPS/NEFT)</option>
+            <option value="Card">Credit/Debit Card</option>
+            <option value="Cheque">Bank Cheque</option>
+            <option value="Cash">Cash to Office</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="maint-ref">Transaction / Ref ID (Optional)</label>
+      <input
+        id="maint-ref"
+        type="text"
+        placeholder="e.g. UPI-9284716298"
+        maxlength="50"
+      />
+
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" id="maint-modal-close">Cancel</button>
+        <button class="btn-submit" id="maint-form-submit">
+          Confirm Payment
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Receipt Preview Modal -->
+  <div id="maint-receipt-overlay" class="hidden">
+    <div id="maint-receipt-modal" class="custom-modal receipt-modal">
+      <div class="receipt-header">
+        <div class="receipt-badge">PAID RECEIPT</div>
+        <h3>Resident Welfare Association</h3>
+        <p>Maintenance Dues Payment Acknowledgment</p>
+      </div>
+      <div class="receipt-body" id="maint-receipt-body">
+        <!-- JS fills receipt info -->
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel-modal" id="maint-receipt-close">Close</button>
+        <button class="btn-submit" id="maint-receipt-print">
+          Print / Save
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header & Action -->
+  <div class="page-header">
+    <div>
+      <h1>Maintenance & Dues</h1>
+      <p>
+        Monthly society maintenance ledger, tracking dues, and payment records.
+      </p>
+    </div>
+    <button class="btn-primary-action" id="btn-open-payment-modal">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
+      <span>Record Payment</span>
+    </button>
+  </div>
+
+  <!-- Summary stats cards -->
+  <div class="maint-stats-grid">
+    <div class="maint-stat-card pop">
+      <span class="stat-title">Total Billed</span>
+      <h2 class="stat-value" id="maint-stat-total">₹0</h2>
+      <span class="stat-hint" id="maint-stat-flats">0 flats billed</span>
+    </div>
+    <div class="maint-stat-card pop highlight-paid">
+      <span class="stat-title">Collected</span>
+      <h2 class="stat-value" id="maint-stat-collected">₹0</h2>
+      <span class="stat-hint text-green" id="maint-stat-paid-count"
+        >0 flats cleared</span
+      >
+    </div>
+    <div class="maint-stat-card pop highlight-pending">
+      <span class="stat-title">Pending</span>
+      <h2 class="stat-value" id="maint-stat-pending">₹0</h2>
+      <span class="stat-hint text-amber" id="maint-stat-pending-count"
+        >0 pending</span
+      >
+    </div>
+    <div class="maint-stat-card pop highlight-overdue">
+      <span class="stat-title">Overdue</span>
+      <h2 class="stat-value" id="maint-stat-overdue">₹0</h2>
+      <span class="stat-hint text-red" id="maint-stat-overdue-count"
+        >0 overdue</span
+      >
+    </div>
+  </div>
+
+  <!-- Search & Filters -->
+  <div class="maint-controls">
+    <div class="maint-search-box">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+      <input
+        type="text"
+        id="maint-search-input"
+        placeholder="Search flat or resident name..."
+      />
+    </div>
+    <div class="filter-row" id="maint-filter-row">
+      <span>Filter:</span>
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="paid">Paid</button>
+      <button class="filter-chip" data-filter="pending">Pending</button>
+      <button class="filter-chip" data-filter="overdue">Overdue</button>
+      <button class="filter-chip" data-filter="Block A">Block A</button>
+      <button class="filter-chip" data-filter="Block B">Block B</button>
+      <button class="filter-chip" data-filter="Block C">Block C</button>
+    </div>
+  </div>
+
+  <!-- Maintenance cards list -->
+  <div class="maintenance-list">
+    <!-- Rendered by js/data-loader.js -> renderMaintenance() -->
+  </div>
 </section>
