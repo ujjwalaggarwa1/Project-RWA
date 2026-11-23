@@ -28,6 +28,7 @@
   - [Running Locally](#running-locally)
   - [Configuration](#configuration)
   - [Authors](#authors)
+  - [Real contributes](#real-contributes)
 
 ---
 
@@ -343,7 +344,7 @@ The dev server is configured for **full-page reload** on every file save (Vite's
     // "/fee-calculator": "fee", dropped
     "/booking": "booking",
     "/complaints": "complaint",
-    "/about": "about"
+    // "/about": "about" dropped
   }
 }
 ```
@@ -373,3 +374,12 @@ _(For the curious: `git blame` tells its own story.)_
 ---
 
 **Live:** [ujjwalaggarwa1.github.io/Project-RWA](https://ujjwalaggarwa1.github.io/Project-RWA) &nbsp;|&nbsp; **Repo:** [github.com/ujjwalaggarwa1/Project-RWA](https://github.com/ujjwalaggarwa1/Project-RWA)
+
+
+
+## Real contributes
+
+| Name         | Role           |
+| ------------ | -------------- |
+| **Ujjwal**   | Lead Developer |
+| **Vardan**   | Contributor    |
