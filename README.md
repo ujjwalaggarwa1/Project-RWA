@@ -226,7 +226,7 @@ Routes are defined in `config.json` and map URL paths to HTML fragment files in 
 
 | Route                 | Fragment File            | Status            |
 | --------------------- | ------------------------ | ----------------- |
-| `/`                   | `pages/overview.html`    | 🚧 In development |
+| `/`                   | `pages/overview.html`    | ✅ Done           |
 | `/notices`            | `pages/notices.html`     | ✅ Done           |
 | `/maintenance`        | `pages/maintenance.html` | ✅ Done           |
 | `/fee-calculator`     | `pages/fee.html`         | 🚧 In development |
