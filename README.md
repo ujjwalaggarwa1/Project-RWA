@@ -371,11 +371,6 @@ Built as a group project at **Lovely Professional University (LPU)**.
 
 _(For the curious: `git blame` tells its own story.)_
 
----
-
-**Live:** [ujjwalaggarwa1.github.io/Project-RWA](https://ujjwalaggarwa1.github.io/Project-RWA) &nbsp;|&nbsp; **Repo:** [github.com/ujjwalaggarwa1/Project-RWA](https://github.com/ujjwalaggarwa1/Project-RWA)
-
-
 
 ## Real contributes
 
@@ -383,3 +378,8 @@ _(For the curious: `git blame` tells its own story.)_
 | ------------ | -------------- |
 | **Ujjwal**   | Lead Developer |
 | **Vardan**   | Contributor    |
+
+
+---
+
+**Live:** [ujjwalaggarwa1.github.io/Project-RWA](https://ujjwalaggarwa1.github.io/Project-RWA) &nbsp;|&nbsp; **Repo:** [github.com/ujjwalaggarwa1/Project-RWA](https://github.com/ujjwalaggarwa1/Project-RWA)
