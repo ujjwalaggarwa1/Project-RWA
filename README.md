@@ -86,7 +86,7 @@ Project-RWA/
 │
 ├── index.html            # App shell — nav, sidebar, content mount point, scripts
 ├── 404.html              # GitHub Pages SPA redirect shim
-├── style.css             # All application styles (single file, ~916 lines)
+├── style.css             # All application styles (single file, ~2650 lines)
 ├── favicon.ico           # Site favicon
 ├── config.json           # Site name + route-to-file mapping
 │
@@ -109,10 +109,10 @@ Project-RWA/
 │
 ├── data/                 # Static data files (simulate API responses)
 │   ├── data.json         # Notices, maintenance dues, bookings (predefined data)
-│   └── admin-data.json   # Admin-specific data (reserved / empty)
+│   └── admin-data.json   # Admin-specific data (reserved / empty) (not functional as of now)
 │
 ├── assets/               # Static assets
-│   └── apartment.svg     # SVG illustration used in the 404 page
+│   └── apartment.svg     # Part of upcoming feature 
 │
 ├── vite.config.js        # Vite dev server config (port 8000, full-reload plugin)
 ├── package.json          # npm metadata + Vite dependency
