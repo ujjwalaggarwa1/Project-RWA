@@ -8,38 +8,39 @@
 
 ## Table of Contents
 
-- [Neighbourly — Resident Welfare Association Portal](#neighbourly--resident-welfare-association-portal)
-  - [Table of Contents](#table-of-contents)
-  - [Overview](#overview)
-  - [Features](#features)
-  - [Tech Stack](#tech-stack)
-  - [Folder Structure](#folder-structure)
-  - [Architecture](#architecture)
-    - [SPA Router](#spa-router)
-    - [Navigation](#navigation)
-    - [Data Layer \& Backend Simulation](#data-layer--backend-simulation)
-    - [Theme System](#theme-system)
-    - [Mobile Menu](#mobile-menu)
-    - [GitHub Pages Compatibility](#github-pages-compatibility)
-  - [Pages \& Routes](#pages--routes)
-  - [Data Schema](#data-schema)
-    - [`data/data.json`](#datadatajson)
-  - [Styling System](#styling-system)
-  - [Running Locally](#running-locally)
-  - [Configuration](#configuration)
-  - [Authors](#authors)
-  - [Real contributes](#real-contributes)
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Folder Structure](#folder-structure)
+- [Architecture](#architecture)
+  - [SPA Router](#spa-router)
+  - [Navigation](#navigation)
+  - [Data Layer & Backend Simulation](#data-layer--backend-simulation)
+  - [Theme System](#theme-system)
+  - [Mobile Menu](#mobile-menu)
+  - [GitHub Pages Compatibility](#github-pages-compatibility)
+- [Pages & Routes](#pages--routes)
+- [Data Schema](#data-schema)
+  - [`data/data.json`](#datadatajson)
+  - [`localStorage` (`rwa_local_data`)](#localstorage-rwa_local_data)
+- [Styling System](#styling-system)
+- [Running Locally](#running-locally)
+- [Configuration](#configuration)
+- [Authors](#authors)
+- [Real Contributes](#real-contributes)
 
 ---
 
 ## Overview
 
-**Neighbourly** is a **frontend-only** web portal built as a university project at Lovely Professional University (LPU). It simulates a full Resident Welfare Association (RWA) management system — notices, maintenance dues, facility bookings, and complaints — without any real backend server.
+**Neighbourly** is a **frontend-only** web portal built as a university project at Lovely Professional University (LPU). It simulates a full Resident Welfare Association (RWA) management system — society notices, maintenance dues, facility bookings, and complaints — without any real backend server.
 
-Since this is a university project, backend behaviour is emulated in two ways:
+Because this is a frontend-centric engineering demonstration, backend behaviour is emulated in two cooperative tiers:
 
-- **Static JSON data** (`data/data.json`) acts as a predefined API response, representing the society's current state (notices, dues, bookings). This is what a real server would return.
-- **`localStorage`** is used to simulate new entries being added by residents or admins. Any entry created through the UI is saved to the browser and merged with the static data on every page load — so additions persist across sessions without any server.
+1. **Predefined Static JSON API (`data/data.json`):** Acts as the remote database/server response, providing baseline seed data for notices, maintenance ledgers, facility bookings, and complaints.
+2. **Client-Side Simulation Layer (`localStorage`):** User interactions — reserving amenities, recording dues payments, filing grievances, or toggling ticket statuses — are validated and persisted to browser storage under the `rwa_local_data` key.
+
+On every page load and route transition, these two datasets are seamlessly merged, with local client additions and status updates taking precedence over server seed data.
 
 The app is built as a **vanilla JS SPA** using the browser's native `History API` for routing. Pages are HTML fragments fetched on demand and injected into a single shell (`index.html`), giving the feel of a multi-page app without full page reloads.
 
@@ -47,35 +48,34 @@ The app is built as a **vanilla JS SPA** using the browser's native `History API
 
 ## Features
 
-| Feature                        | Description                                                                           |
-| ------------------------------ | ------------------------------------------------------------------------------------- |
-| 📋 **Notices Board**           | Society announcements with priority levels (high / medium / low) color-coded visually |
-| 🔧 **Maintenance Dues**        | Flat-wise payment status (paid, pending, overdue)                                     |
-| 📅 **Facility Bookings**       | View bookings for Club House, Party Lawn, etc. with approval status                   |
-| 🛠️ **Complaints**              | Register and track resident complaints _(page in development)_                        |
-| 🧮 **Fee Calculator**          | Utility to calculate maintenance fees _(page in development)_                         |
-| 👤 **Resident / Admin Toggle** | UI pill to switch between resident and admin views                                    |
-| 🌙 **Dark / Light Theme**      | Animated icon transition through 7 SVG states; preference persisted in `localStorage` |
-| 📱 **Fully Responsive**        | Collapsible sidebar navigation on mobile (≤650px), tooltips on medium screens         |
-| ⚡ **SPA Navigation**          | Zero full-page reloads; browser back/forward buttons work correctly                   |
-| 💾 **localStorage Simulation** | New entries created in the UI are saved locally and merged with static data           |
-| 🌐 **GitHub Pages Ready**      | Custom `404.html` redirect trick for deep-link support on static hosts                |
+| Feature | Description |
+|---|---|
+| 📋 **Notices Board** | Society announcements categorized with visual priority borders (High / Medium / Low). |
+| 🔧 **Maintenance & Financial Ledger** | Society-wide dues ledger, 4 financial KPI cards (Total Billed, Collected, Pending, Overdue), live search/filter by flat or resident, payment recording modal, and printable digital receipts. |
+| 📅 **Facility Bookings** | Multi-amenity selector (Club House & Party Lawn), interactive calendar with reservation dots, slot collision engine (Morning / Afternoon / Evening), and booking modal with instant confirmation. |
+| 🛠️ **Complaints & Grievances** | Issue tracking with status KPI cards (Total, Open, In Progress, Resolved), category and priority filters, ticket submission modal, and status lifecycle progression. |
+| 👤 **Resident / Admin View** | UI role switcher in the navigation bar (admin functionality reserved for future backend). |
+| 🌙 **Dark / Light Theme** | Smooth animated SVG icon transition cycling through 7 glyph states; user preference persisted in `localStorage`. |
+| 📱 **Fully Responsive** | Desktop top bar, collapsed tooltips on intermediate screens, and an animated hamburger-to-sidebar mobile drawer (≤650px). |
+| ⚡ **SPA Navigation** | Zero full-page reloads using native HTML5 History API; animated indicator line tracks active nav links via `ResizeObserver`. |
+| 💾 **localStorage Simulation** | Full client-side persistence for bookings, cleared dues, and complaints merged with baseline JSON. |
+| 🌐 **GitHub Pages Ready** | Custom `404.html` redirect shim preserves deep-linking and back/forward navigation on static hosts. |
 
 ---
 
 ## Tech Stack
 
-| Layer            | Technology                                                                    |
-| ---------------- | ----------------------------------------------------------------------------- |
-| Runtime          | Vanilla JavaScript (ES Modules)                                               |
-| Styling          | Custom CSS (CSS custom properties, `oklch` colors, `@keyframes`)              |
-| Fonts            | Google Fonts — Poppins, Goldman, Nunito, Short Stack, Noto Serif Dives Akuru  |
-| Icons            | Inline SVG (Lucide icon set)                                                  |
-| Dev Server       | [Vite](https://vitejs.dev/) (dev only — no bundling used in the final output) |
-| Data ("Backend") | Static JSON files + `localStorage` for simulated additions                    |
-| Hosting          | GitHub Pages / any static file host                                           |
+| Layer | Technology |
+|---|---|
+| Runtime | Vanilla JavaScript (ES Modules) — No framework dependencies |
+| Styling | Custom CSS (CSS custom properties, modern `oklch` color tokens, `@keyframes`) |
+| Fonts | Google Fonts — Poppins, Goldman, Nunito, Short Stack, Noto Serif Dives Akuru |
+| Icons | Inline SVG (Lucide icon set + custom path animations) |
+| Dev Server | [Vite](https://vitejs.dev/) (dev only — no bundling used; files served as-is) |
+| Data ("Backend") | Static JSON files + `localStorage` for simulated persistence |
+| Hosting | GitHub Pages / any static file host |
 
-> **Note:** Vite is used **only as a development server** with hot-reload (full-page reload on save). The project does **not** use any Vite build pipeline, bundlers, or transpilers — the source files are served as-is.
+> **Note:** Vite is used **strictly as a development server** with hot-reload (full-page reload on save). The project does **not** rely on any Vite build pipeline, bundlers, or transpilers — the source files are deployed directly as plain static files.
 
 ---
 
@@ -86,36 +86,39 @@ Project-RWA/
 │
 ├── index.html            # App shell — nav, sidebar, content mount point, scripts
 ├── 404.html              # GitHub Pages SPA redirect shim
-├── style.css             # All application styles (single file, ~2650 lines)
+├── style.css             # Application stylesheet (single file, ~2,637 lines)
 ├── favicon.ico           # Site favicon
 ├── config.json           # Site name + route-to-file mapping
 │
-├── pages/                # HTML page fragments (loaded dynamically by the router)
-│   ├── overview.html     # Dashboard / home page
+├── pages/                # HTML page fragments (loaded dynamically by router.js)
+│   ├── overview.html     # Dashboard / home page with notice board & widgets
 │   ├── notices.html      # Notices listing page
-│   ├── maintenance.html  # Maintenance dues page       ← in development
-│   ├── fee.html          # Fee calculator page         ← in development
-│   ├── booking.html      # Bookings page               ← in development
-│   ├── complaint.html    # Complaints page             ← in development
-│   ├── about.html        # About / info page
+│   ├── maintenance.html  # Maintenance dues & financial ledger page
+│   ├── booking.html      # Facility bookings & calendar reservation page
+│   ├── complaint.html    # Complaints & grievance redressal page
+│   ├── about.html        # About / info page (in development)
+│   ├── fee.html          # Legacy placeholder (route dropped from config.json)
 │   └── 404.html          # Not-found fragment (custom SVG illustration)
 │
 ├── js/                   # All JavaScript modules
 │   ├── router.js         # SPA router — fetches & renders page fragments
 │   ├── navigate.js       # Click-delegation navigation + pushState wrapper
-│   ├── data-loader.js    # Fetches data.json, merges localStorage, renders lists
-│   ├── theme_handle.js   # Dark/light theme toggle with animated SVG icon
-│   └── menu_btn.js       # Mobile hamburger menu open/close logic
+│   ├── data-loader.js    # Data orchestration — fetches JSON, merges localStorage, renders DOM
+│   ├── bookingHandle.js  # Calendar rendering, slot collision detection, booking modal & persistence
+│   ├── maintenanceHandle.js # Financial KPIs, payment recording modal, digital receipt generator
+│   ├── complaintHandle.js   # Grievance filtering, ticket submission modal, status toggles
+│   ├── theme_handle.js   # Dark/light theme toggle with 7-step SVG morphing animation
+│   └── menu_btn.js       # Mobile hamburger menu open/close & backdrop animations
 │
-├── data/                 # Static data files (simulate API responses)
-│   ├── data.json         # Notices, maintenance dues, bookings (predefined data)
-│   └── admin-data.json   # Admin-specific data (reserved / empty) (not functional as of now)
+├── data/                 # Static data files (simulated REST API responses)
+│   ├── data.json         # Notices, maintenance dues, bookings, and complaints baseline data
+│   └── admin-data.json   # Admin-specific data (reserved for future admin authentication)
 │
 ├── assets/               # Static assets
-│   └── apartment.svg     # Part of upcoming feature 
+│   └── apartment.svg     # SVG illustration used in the 404 page
 │
 ├── vite.config.js        # Vite dev server config (port 8000, full-reload plugin)
-├── package.json          # npm metadata + Vite dependency
+├── package.json          # npm metadata + Vite dev dependency
 │
 ├── input.css             # Legacy CSS (reference only, not in use)
 ├── output.css            # Legacy CSS (reference only, not in use)
@@ -128,7 +131,7 @@ Project-RWA/
 
 ### SPA Router
 
-**`js/router.js`** is the heart of the application.
+**`js/router.js`** serves as the central navigation controller.
 
 ```
 URL change  ──►  render()  ──►  routes lookup in config.json
@@ -144,99 +147,137 @@ URL change  ──►  render()  ──►  routes lookup in config.json
 
 Key design decisions:
 
-- **Dynamic base extraction** — The router reads its own script URL (`import.meta.url`) to calculate the deployment base path. This makes it work without changes on `localhost`, custom domains, and GitHub Pages sub-paths (e.g. `/Project-RWA/`).
-- **Race condition guard** — A `latestRequest` counter ensures that if two navigations fire in quick succession, only the last response wins; stale responses are silently dropped.
-- **Animated active indicator** — CSS `--x`, `--y`, `--w`, `--h` custom properties are set by JS to position an animated underline/indicator bar under the active nav button. A `ResizeObserver` keeps it accurate on resize.
-- **Footer toggling** — The footer is hidden on the `/about` route automatically.
-- **Font-ready reveal** — `document.fonts.ready` is awaited before showing content to prevent layout shifts from late-loading Google Fonts.
+- **Dynamic Base Extraction:** Calculates the deployment root mathematically using `import.meta.url`. It works without path modification on `localhost`, custom domains, and GitHub Pages sub-directories (e.g. `/Project-RWA/`).
+- **Race Condition Guard:** A monotonically increasing `latestRequest` counter discards outdated responses if a user clicks through multiple routes rapidly.
+- **Animated Active Indicator:** Positions an indicator line under the active navigation button using CSS custom properties (`--x`, `--y`, `--w`, `--h`), updated reactively with a `ResizeObserver`.
+- **Automatic Footer Visibility:** Hides the footer automatically on full-bleed routes such as `/about`.
+- **Font & Layout Stabilization:** Awaits `document.fonts.ready` before final measurement to eliminate layout shift caused by external Google Fonts.
 
 ---
 
 ### Navigation
 
-**`js/navigate.js`** handles all in-app link clicks via **event delegation** on `document`.
+**`js/navigate.js`** handles internal link transitions via **event delegation** on `document`.
 
-Any element with a `data-link` attribute (button or anchor) triggers navigation:
-
+Any element with a `data-link` attribute (buttons or anchor tags) is intercepted:
 ```html
 <a href="/notices" data-link>Notices</a>
-<button data-link="/about">About</button>
+<button data-link="/booking">Bookings</button>
 ```
 
-The module wraps `history.pushState` and manually calls `render()` since `pushState` does not fire a `popstate` event. The browser's native back/forward buttons are handled by a `popstate` listener in `router.js`.
+The module prevents default browser navigation, executes `history.pushState(null, "", withBase(path))`, and manually invokes `render()` from `router.js`. Back and forward browser actions are caught by a global `popstate` listener.
 
 ---
 
 ### Data Layer & Backend Simulation
 
-**`js/data-loader.js`** exports a single `populate()` function called after every page load. This module is the core of the project's backend simulation strategy.
+**`js/data-loader.js`** is the data backbone of the application. On every route change, it executes `populate()` to merge server defaults with local modifications and coordinate page controllers.
 
-Data flow:
+#### 1. Data Flow & Synchronization
 
 ```
-data/data.json  ──┐  (predefined "API" data — simulates a server response)
-                  ├──►  merge (localStorage wins on ID collision)  ──►  render into DOM
-localStorage    ──┘  (user-added entries — simulates a database write)
+┌─────────────────────────────────┐       ┌──────────────────────────────────┐
+│   Server Data: data/data.json   │       │  Local Data: localStorage        │
+│  (Notices, Dues, Bookings,      │       │  (Key: "rwa_local_data")         │
+│   Complaints Baseline)          │       │  (User Additions & Overrides)    │
+└────────────────┬────────────────┘       └─────────────────┬────────────────┘
+                 │                                          │
+                 └──────────────────► ◄─────────────────────┘
+                                       │
+                         Deep Merge (Local Overrides Win)
+                                       │
+                         ┌─────────────┴─────────────┐
+                         ▼                           ▼
+                Render into Active DOM      Initialize Interactive
+                Containers:                 Controllers:
+                • renderNotices()           • initBookingPage()
+                • renderMaintenance()       • initMaintenancePage()
+                • renderBookings()          • initComplaintPage()
+                • renderComplaints()
+                • updateOverviewWidgets()
 ```
 
-- **`data/data.json`** acts as the static "server response" — it holds all predefined notices, maintenance records, and bookings, exactly as a real REST API would return them.
-- **`localStorage`** (key: `rwa_local_data`) simulates the write side of a backend. When a resident or admin adds a new entry through the UI, it is saved here. On every page load, local entries are merged with the static data, with `localStorage` taking precedence on ID collisions.
-- Three render functions (`renderNotices`, `renderMaintenance`, `renderBookings`) each look for their container in the currently loaded page fragment and do nothing if absent — safe to call on every route change.
+1. **Reading & Merging:**
+   ```javascript
+   const mergedData = {
+     notices: { ...serverData.notices, ...localData.notices },
+     maintenance: { ...serverData.maintenance, ...localData.maintenance },
+     bookings: { ...serverData.bookings, ...localData.bookings },
+     complaints: { ...serverData.complaints, ...localData.complaints },
+   };
+   ```
+   If an ID already exists in both datasets (e.g., an existing flat's maintenance status is modified from pending to paid), the `localStorage` version takes precedence.
 
-This two-layer approach lets the project demonstrate full CRUD-like behaviour (read from static data, write to `localStorage`) entirely in the browser with no server required.
+2. **DOM Rendering & Safety:**
+   Render methods (`renderNotices`, `renderMaintenance`, `renderBookings`, `renderComplaints`, and `updateOverviewWidgets`) inspect the DOM for their respective container classes (`.notices-list`, `.maintenance-list`, `.bookings-list`, `.complaints-list`). If a container does not exist on the current page fragment, the function exits safely without throwing errors.
+
+#### 2. How Local Storage Writes Work Across Handlers
+
+Each interactive module manages its own writes to `localStorage` under the shared key `rwa_local_data`:
+
+- **Facility Bookings (`js/bookingHandle.js`):**
+  When a resident completes the booking modal:
+  1. Validates inputs (name, flat, event, guest count) and checks for time slot conflicts.
+  2. Generates an ID: `BKG-${Date.now()}`.
+  3. Reads existing `rwa_local_data` from `localStorage`, appends `local.bookings[id] = newEntry`, and writes back via `JSON.stringify()`.
+  4. Updates in-memory `cachedBookings` and re-renders the calendar and slot list reactively without refreshing the page.
+
+- **Maintenance Dues (`js/maintenanceHandle.js`):**
+  When a payment is recorded via the "Pay Now" or "Record Payment" modal:
+  1. Updates the flat's record: `status = ["paid", currentDate]`.
+  2. Reads `rwa_local_data`, sets `localData.maintenance[flat] = updatedRecord`, and writes back to `localStorage`.
+  3. Re-renders the maintenance cards, recalculates the 4 financial KPI aggregate metrics, and displays an official digital receipt with print support (`window.print()`).
+
+- **Complaints (`js/complaintHandle.js`):**
+  - **Filing a Complaint:** Computes the next ticket number (`CMP-006`), stamps the current date, sets status to `"open"`, updates `localData.complaints[newId]`, writes to `localStorage`, and prepends the card to the list.
+  - **Status Progression:** Calling `toggleComplaintStatus(id)` cycles tickets through `"open"` → `"in_progress"` → `"resolved"` → `"open"`, immediately persisting the new state to `localStorage`.
 
 ---
 
 ### Theme System
 
-**`js/theme_handle.js`** implements a polished dark/light mode toggle.
+**`js/theme_handle.js`** manages the light and dark theme experience:
 
-- Reads `localStorage` on init; falls back to `prefers-color-scheme` media query.
-- Applies/removes the `.dark` class on `<html>`, which flips all CSS custom properties.
-- The toggle button icon animates through **7 distinct SVG states** (moon → sun, with intermediate glyphs) at ~71ms per frame, creating a smooth morphing effect.
-- The button is `disabled` during animation to prevent rapid-clicking artifacts.
+- Checks `localStorage.getItem("theme")` on startup, falling back to the browser's `prefers-color-scheme` media query.
+- Toggles the `.dark` class on the `<html>` root element, flipping all CSS custom property variables.
+- The theme toggle button contains an asynchronous animation loop cycling through **7 SVG icon paths** at ~71ms intervals, creating a continuous morphing effect between sun and moon.
+- The button is disabled during animation to prevent rapid-click race conditions.
 
 ---
 
 ### Mobile Menu
 
-**`js/menu_btn.js`** manages the hamburger menu for screens ≤650px.
+**`js/menu_btn.js`** handles responsive navigation on screens ≤650px:
 
-- Toggles `.open` on the `#sidebar` element (CSS slides it in from the right with a `translateX` transition and a frosted-glass `backdrop-filter`).
-- The hamburger SVG morphs into an ✕ using CSS `transform` on its three `<path>` elements.
-- After a nav link is clicked inside the sidebar, the menu closes with a 450ms delay (so the user can see the active indicator animate before closing).
-- A `matchMedia` listener auto-closes the sidebar if the viewport widens past 650px.
+- Toggles the `.open` class on the full-screen `#sidebar` drawer with smooth CSS slide transitions and a frosted-glass `backdrop-filter`.
+- Morphs the three horizontal bars of the hamburger SVG into an ✕ using CSS rotation and scale transforms.
+- Closes the sidebar with a 450ms delay after clicking a link so users can see the active indicator animation before dismissal.
+- Listens to `window.matchMedia('(max-width: 650px)')` to automatically close the mobile drawer if the screen is resized wider.
 
 ---
 
 ### GitHub Pages Compatibility
 
-Static hosts like GitHub Pages serve a `404.html` for any unknown URL. The project uses a two-part trick:
+Static web servers serve a default `404.html` on deep URLs. Neighbourly solves this with a two-step shim:
 
-1. **`404.html` (root)** — Redirects the browser to `/?path=/the/original/path` without adding a history entry (`location.replace`). It detects if running on a GitHub Pages project site (`.github.io` hostname) and accounts for the repo-name base path.
-
-2. **`router.js`** — On startup, reads the `?path=` query parameter and immediately calls `history.replaceState` to restore the real URL without a reload.
-
-This means deep-links like `https://user.github.io/Project-RWA/notices` work correctly even on a static host.
+1. **`404.html` (root):** Extracts the target pathname, formats it as `/?path=%2Ftarget%2Froute`, and replaces the current URL via `location.replace()`. It automatically accounts for the GitHub repository sub-path (`/Project-RWA/`).
+2. **`js/router.js`:** On initialization, checks for the `?path=` query parameter. If found, it immediately cleans the URL back to the standard pathname using `history.replaceState()` without reloading the page.
 
 ---
 
 ## Pages & Routes
 
-Routes are defined in `config.json` and map URL paths to HTML fragment files in `pages/`:
+Routes are configured in `config.json` and map URL paths to HTML fragments in `pages/`:
 
-| Route                 | Fragment File            | Status            |
-| --------------------- | ------------------------ | ----------------- |
-| `/`                   | `pages/overview.html`    | ✅ Done           |
-| `/notices`            | `pages/notices.html`     | ✅ Done           |
-| `/maintenance`        | `pages/maintenance.html` | ✅ Done           |
-| `/fee-calculator`     | `pages/fee.html`         | 🚧 In development |
-| `/booking`            | `pages/booking.html`     | ✅ Done           |
-| `/complaints`         | `pages/complaint.html`   | ✅ Done           |
-| `/about`              | `pages/about.html`       | 🚧 In development |
-| _(any unknown route)_ | `pages/404.html`         | ✅ Done           |
-
-> **Note:** Pages marked 🚧 currently render only a placeholder text. Full UI for those sections is yet to be built.
+| Route | Fragment File | Status | Description |
+|---|---|---|---|
+| `/` | `pages/overview.html` | ✅ Done | Dashboard with society notice board and interactive overview widgets. |
+| `/notices` | `pages/notices.html` | ✅ Done | Full-page notices board with priority badges. |
+| `/maintenance` | `pages/maintenance.html` | ✅ Done | Dues ledger, financial KPI cards, live search, payment modal, and printable receipts. |
+| `/booking` | `pages/booking.html` | ✅ Done | Club House & Party Lawn booking calendar, slot collision detection, and reservation modal. |
+| `/complaints` | `pages/complaint.html` | ✅ Done | Grievance redressal, KPI counters, category filters, and complaint submission. |
+| `/about` | `pages/about.html` | 🚧 In development | Society details and general information. |
+| _(unknown routes)_ | `pages/404.html` | ✅ Done | Custom 404 page featuring an apartment SVG graphic. |
 
 ---
 
@@ -244,7 +285,7 @@ Routes are defined in `config.json` and map URL paths to HTML fragment files in 
 
 ### `data/data.json`
 
-This file acts as the simulated API response. Edit it to change the predefined society data shown in the app.
+This file provides the initial baseline data representing the society state:
 
 ```jsonc
 {
@@ -257,16 +298,16 @@ This file acts as the simulated API response. Edit it to change the predefined s
     }
   },
   "maintenance": {
-    "<flat-id>": {              // e.g. "A-101"
+    "<flat-id>": {              // e.g. "A-101", "B-205"
       "resident": "string",
       "amount": number,
       "due_date": "DD-MM-YYYY",
-      "status": ["paid" | "pending" | "overdue", "<optional-date-or-note>"]
+      "status": ["paid" | "pending" | "overdue", "<date-or-note>"]
     }
   },
   "bookings": {
     "<booking-id>": {           // e.g. "BKG-001"
-      "facility": "string",
+      "facility": "Club House" | "Party Lawn",
       "flat": "string",
       "resident": "string",
       "event_type": "string",
@@ -276,61 +317,116 @@ This file acts as the simulated API response. Edit it to change the predefined s
       "payment_status": "paid" | "pending",
       "approval_status": "confirmed" | "awaiting_payment" | "rejected_*"
     }
+  },
+  "complaints": {
+    "<complaint-id>": {         // e.g. "CMP-001"
+      "flat": "string",
+      "resident": "string",
+      "category": "Plumbing" | "Electrical" | "Common Area" | "Sanitation" | "Noise" | "Security" | "Other",
+      "title": "string",
+      "description": "string",
+      "priority": "low" | "medium" | "high",
+      "status": "open" | "in_progress" | "resolved",
+      "date": "DD-MM-YYYY"
+    }
   }
 }
 ```
 
-User-added entries via the UI follow the same schema and are stored under the `rwa_local_data` key in `localStorage`.
+### `localStorage` (`rwa_local_data`)
+
+User-created records and status updates are saved under the `rwa_local_data` key with an identical schema structure:
+
+```jsonc
+{
+  "notices": {},
+  "maintenance": {
+    "B-205": {
+      "resident": "Neha",
+      "amount": 2200,
+      "due_date": "23-12-2026",
+      "status": ["paid", "24-11-2026"]
+    }
+  },
+  "bookings": {
+    "BKG-1732456789000": {
+      "facility": "Club House",
+      "flat": "B-304",
+      "resident": "Rahul Sharma",
+      "event_type": "Family Gathering",
+      "booking_date": "28-11-2026",
+      "time_slot": "18:00 - 23:59",
+      "guest_count": 25,
+      "payment_status": "pending",
+      "approval_status": "awaiting_payment"
+    }
+  },
+  "complaints": {
+    "CMP-006": {
+      "flat": "C-201",
+      "resident": "Priya Verma",
+      "category": "Electrical",
+      "title": "Corridor Light Failure",
+      "description": "Corridor light fixture is sparking on the 3rd floor.",
+      "priority": "high",
+      "status": "open",
+      "date": "24-11-2026"
+    }
+  }
+}
+```
 
 ---
 
 ## Styling System
 
-`style.css` uses a **semantic CSS custom property** layer:
+`style.css` uses a **semantic CSS custom property** layer built on `oklch` perceptual color spaces:
 
-| Token             | Light                | Dark              | Meaning              |
-| ----------------- | -------------------- | ----------------- | -------------------- |
-| `--sunken-color`  | lightest warm white  | darkest charcoal  | Recessed surfaces    |
-| `--page-color`    | warm white           | dark charcoal     | Base page background |
-| `--surface-color` | slightly lighter     | slightly lighter  | Card/panel surfaces  |
-| `--raised-color`  | lighter still        | lighter still     | Elevated UI elements |
-| `--overlay-color` | pure white           | lightest charcoal | Topmost elements     |
-| `--ink-color`     | near-black           | near-white        | Primary text         |
-| `--accent-color`  | blue (`oklch 54.6%`) | _(same)_          | Interactive accent   |
+| Token | Light Mode | Dark Mode | Usage |
+|---|---|---|---|
+| `--sunken-color` | Lightest warm white | Darkest charcoal | Recessed backgrounds |
+| `--page-color` | Warm white | Dark charcoal | Base page background |
+| `--surface-color` | Slightly lighter off-white | Medium charcoal | Cards, panels, modals |
+| `--raised-color` | Elevated white | Elevated charcoal | Buttons, controls, chips |
+| `--overlay-color` | Pure white | Light charcoal | Dropdown menus, tooltips |
+| `--ink-color` | Near-black | Near-white | Primary typography |
+| `--accent-color` | Blue (`oklch 54.6%`) | Blue (`oklch 54.6%`) | Interactive links & highlights |
 
-Colors are defined in **`oklch` color space** for perceptual uniformity across light and dark variants.
+**Responsive Breakpoints:**
 
-**Responsive breakpoints:**
-
-| Breakpoint | Behaviour                                                     |
-| ---------- | ------------------------------------------------------------- |
-| `≤ 1224px` | Nav text labels hidden; icons only with CSS tooltips on hover |
-| `≤ 850px`  | Dashpill role-toggle labels hidden                            |
-| `≤ 750px`  | Overview switches to single-column grid                       |
-| `≤ 650px`  | Top nav hidden; hamburger menu + sidebar activated            |
-| `≤ 425px`  | Resident/Admin toggle pill hidden                             |
+| Breakpoint | Behaviour |
+|---|---|
+| `≤ 1224px` | Nav text labels collapse; buttons show icons with hover tooltips. |
+| `≤ 850px` | Resident/Admin toggle labels hidden (icons only). |
+| `≤ 750px` | Overview grid stacks into a single-column layout. |
+| `≤ 650px` | Desktop navigation bar hides; hamburger toggle and slide-in drawer activate. |
+| `≤ 425px` | Role-toggle dashpill hides to prioritize branding title space. |
 
 ---
 
 ## Running Locally
 
 ```bash
-# Install Vite (only dev dependency)
+# 1. Clone the repository
+git clone https://github.com/ujjwalaggarwa1/Project-RWA.git
+cd Project-RWA
+
+# 2. Install dependencies (Vite for local development)
 npm install
 
-# Start the dev server at http://127.0.0.1:8000
+# 3. Start the dev server (defaults to http://127.0.0.1:8000)
 npx vite
 ```
 
-The dev server is configured for **full-page reload** on every file save (Vite's default HMR is disabled) so that the router always starts fresh — matching the production static-file behavior.
+The local development server is configured with a custom full-page reload plugin on file save (`vite.config.js`) so that routing state refreshes cleanly, mirroring production static-file hosting.
 
-> **Tip:** The app works without Vite too — just serve the project root with any static file server (e.g. `npx serve .` or VS Code Live Server). Vite is only needed for the convenient dev experience.
+> **Tip:** The application runs completely without Vite. You can serve the repository using any local HTTP static server (e.g. `python -m http.server 8000` or the VS Code Live Server extension).
 
 ---
 
 ## Configuration
 
-**`config.json`** is the single source of truth for site identity and routing:
+**`config.json`** is the single configuration source for application metadata and routing:
 
 ```json
 {
@@ -341,20 +437,19 @@ The dev server is configured for **full-page reload** on every file save (Vite's
     "/": "overview",
     "/notices": "notices",
     "/maintenance": "maintenance",
-    // "/fee-calculator": "fee", dropped
     "/booking": "booking",
     "/complaints": "complaint",
-    // "/about": "about" dropped
+    "/about": "about"
   }
 }
 ```
 
-| Key        | Purpose                                                    |
-| ---------- | ---------------------------------------------------------- |
-| `name`     | Society/app name displayed in the navbar and page titles   |
-| `rootId`   | ID of the DOM element where page fragments are injected    |
-| `notFound` | Fragment filename to show for unrecognized routes          |
-| `routes`   | Map of URL path → HTML fragment filename (without `.html`) |
+| Key | Purpose |
+|---|---|
+| `name` | Society/app name displayed in the navbar branding and document title. |
+| `rootId` | ID of the DOM element where page fragments are injected (`#content`). |
+| `notFound` | Fragment filename displayed for unrecognized URL paths (`404`). |
+| `routes` | Key-value mapping of URL paths to fragment filenames inside `pages/`. |
 
 ---
 
@@ -362,23 +457,23 @@ The dev server is configured for **full-page reload** on every file save (Vite's
 
 Built as a group project at **Lovely Professional University (LPU)**.
 
-| Name         | Role           |
-| ------------ | -------------- |
-| **Ujjwal**   | Lead Developer |
-| **Anshul**   | Contributor    |
-| **Mayank**   | Contributor    |
-| **Manpreet** | Contributor    |
+| Name | Role |
+|---|---|
+| **Ujjwal** | Lead Developer |
+| **Anshul** | Contributor |
+| **Mayank** | Contributor |
+| **Manpreet** | Contributor |
 
-_(For the curious: `git blame` tells its own story.)_
+*(For the curious: `git blame` tells its own story.)*
 
+---
 
-## Real contributes
+## Real Contributes
 
-| Name         | Role           |
-| ------------ | -------------- |
-| **Ujjwal**   | Lead Developer |
-| **Vardan**   | Contributor    |
-
+| Name | Role |
+|---|---|
+| **Ujjwal** | Lead Developer |
+| **Vardan** | Contributor |
 
 ---
 
